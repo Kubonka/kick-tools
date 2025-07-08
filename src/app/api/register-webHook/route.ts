@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
-
+import qs from "qs"; // Asegurate de tener instalado: npm install qs
 export async function POST() {
   //! rtmps://fa723fc1b171.global-contribute.live-video.net -> STREAM URL
   try {
@@ -13,11 +13,24 @@ export async function POST() {
     const WEBHOOK_URL = "https://kick-tools.vercel.app/api/kick-webhook";
 
     // Obtener token
-    const tokenRes = await axios.post("https://kick.com/oauth2/token", {
-      client_id: KICK_CLIENT_ID,
-      client_secret: KICK_CLIENT_SECRET,
-      grant_type: "client_credentials",
-    });
+    // const tokenRes = await axios.post("https://kick.com/oauth2/token", {
+    //   client_id: KICK_CLIENT_ID,
+    //   client_secret: KICK_CLIENT_SECRET,
+    //   grant_type: "client_credentials",
+    // });
+    const tokenRes = await axios.post(
+      "https://kick.com/oauth2/token",
+      qs.stringify({
+        client_id: KICK_CLIENT_ID,
+        client_secret: KICK_CLIENT_SECRET,
+        grant_type: "client_credentials",
+      }),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
     const accessToken = tokenRes.data.access_token;
     console.log("token ", accessToken);
 
