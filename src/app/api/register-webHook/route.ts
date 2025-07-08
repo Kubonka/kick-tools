@@ -19,7 +19,7 @@ export async function POST() {
     //   grant_type: "client_credentials",
     // });
     const tokenRes = await axios.post(
-      "https://kick.com/oauth2/token",
+      "https://id.kick.com/oauth2/token",
       qs.stringify({
         client_id: KICK_CLIENT_ID,
         client_secret: KICK_CLIENT_SECRET,
