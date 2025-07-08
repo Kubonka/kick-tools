@@ -49,10 +49,7 @@ function verifySignature({
   return verifier.verify(publicKeyPem, signatureBuffer);
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
 
   const rawBody = await buffer(req);
