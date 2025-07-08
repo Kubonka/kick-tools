@@ -8,8 +8,7 @@ export async function POST() {
     const KICK_CLIENT_SECRET = process.env.KICK_CLIENT_SECRET!;
     console.log("KICK_CLIENT_ID", KICK_CLIENT_ID);
     console.log("KICK_CLIENT_SECRET", KICK_CLIENT_SECRET);
-    const BROADCASTER_ID =
-      "sk_us-west-2_XhWRlZLqE3Fw_2b30GaDhISb93EO3U6ixgIlxn6GB0K"; // o hacelo dinámico
+    const BROADCASTER_ID = "67641630"; // o hacelo dinámico
     const WEBHOOK_URL = "https://kick-tools.vercel.app/api/kick-webhook";
 
     // Obtener token
