@@ -16,8 +16,8 @@ export async function POST() {
       client_secret: KICK_CLIENT_SECRET,
       grant_type: "client_credentials",
     });
-
     const accessToken = tokenRes.data.access_token;
+    console.log("token ", accessToken);
 
     // Registrar el webhook
     const registerRes = await axios.post(
