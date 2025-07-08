@@ -1,6 +1,4 @@
-// pages/api/kick-webhook.ts
-import type { NextApiRequest, NextApiResponse } from "next";
-import { buffer } from "micro";
+//import { buffer } from "stream/consumers"; // Usamos node:stream
 import crypto from "crypto";
 
 export const config = {
@@ -19,14 +17,6 @@ BEbZ5jgB8s8ReQV8H+MkuffjdAj3ajDDX3DOJMIut1lBrUVD1AaSrGCKHooWoL2e
 twIDAQAB
 -----END PUBLIC KEY-----`;
 
-// async function fetchKickPublicKey(): Promise<string> {
-//   const res = await fetch("https://api.kick.com/public/v1/public-key");
-//   if (!res.ok) throw new Error("Error fetching Kick public key");
-
-//   const data = await res.json();
-//   return data.public_key as string;
-//}
-
 function verifySignature({
   rawBody,
   messageId,
@@ -44,23 +34,22 @@ function verifySignature({
   const verifier = crypto.createVerify("RSA-SHA256");
   verifier.update(data);
   verifier.end();
-
   const signatureBuffer = Buffer.from(signature, "base64");
   return verifier.verify(publicKeyPem, signatureBuffer);
 }
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
-
-  const rawBody = await buffer(req);
-
-  const messageId = req.headers["kick-event-message-id"] as string;
-  const timestamp = req.headers["kick-event-message-timestamp"] as string;
-  const signature = req.headers["kick-event-signature"] as string;
+export async function POST(req: Request): Promise<Response> {
+  const messageId = req.headers.get("kick-event-message-id");
+  const timestamp = req.headers.get("kick-event-message-timestamp");
+  const signature = req.headers.get("kick-event-signature");
 
   if (!messageId || !timestamp || !signature) {
-    return res.status(400).json({ error: "Missing headers" });
+    return new Response(JSON.stringify({ error: "Missing headers" }), {
+      status: 400,
+    });
   }
+
+  const rawBody = Buffer.from(await req.arrayBuffer());
 
   const isValid = verifySignature({
     rawBody,
@@ -71,11 +60,16 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
   });
 
   if (!isValid) {
-    return res.status(401).json({ error: "Invalid signature" });
+    return new Response(JSON.stringify({ error: "Invalid signature" }), {
+      status: 401,
+    });
   }
 
   const event = JSON.parse(rawBody.toString());
   console.log("[Kick Webhook] Evento recibido:", event);
 
-  res.status(200).json({ success: true });
+  return new Response(JSON.stringify({ success: true }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }
