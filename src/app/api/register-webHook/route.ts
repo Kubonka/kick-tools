@@ -36,17 +36,17 @@ export async function POST() {
 
     // Registrar el webhook
     const registerRes = await axios.post(
-      "https://api.kick.com/v1/event-subscriptions",
+      "https://api.kick.com/public/v1/events/subscriptions",
       {
-        event_type: "chat.message.sent",
-        version: "1",
-        condition: {
-          broadcaster_user_id: BROADCASTER_ID,
-        },
-        transport: {
-          method: "webhook",
-          callback: WEBHOOK_URL,
-        },
+        broadcaster_user_id: BROADCASTER_ID,
+        events: [
+          {
+            name: "chat.message.sent",
+            version: 1,
+          },
+        ],
+        method: "webhook",
+        callback: WEBHOOK_URL,
       },
       {
         headers: {
