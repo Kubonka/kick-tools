@@ -11,6 +11,7 @@ export async function POST() {
     const WEBHOOK_URL = "https://kick-tools.vercel.app/api/kick-webhook";
 
     // Obtener token
+    console.log("token request");
     const tokenRes = await axios.post("https://kick.com/oauth2/token", {
       client_id: KICK_CLIENT_ID,
       client_secret: KICK_CLIENT_SECRET,
