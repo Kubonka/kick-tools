@@ -5,7 +5,7 @@ import axios from "axios";
 export default function Settings() {
   async function registerWebhook() {
     try {
-      const res = await axios.post("/api/register-webhook");
+      const res = await axios.post("/api/register-webHook");
 
       if (res.data.success) {
         alert("Webhook registrado correctamente");
