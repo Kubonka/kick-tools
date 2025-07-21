@@ -3,7 +3,8 @@ type Status = "white" | "gray" | "yellow" | "green";
 type Cell = { char: string; status: Status };
 
 export default class GameManager {
-  private gameOver = false;
+  public gameOver = false;
+  private solving = false;
   private allWords: Words;
   private pool: Words;
   private targetWord: string = "";
@@ -40,7 +41,7 @@ export default class GameManager {
   }
 
   public setChar(char: string): boolean {
-    console.log("TARGET ", this.targetWord);
+    if (this.solving) return false;
     if (char === "Backspace") {
       //todo si es backspace
       if (this.col > 0) {
@@ -56,6 +57,7 @@ export default class GameManager {
       this.update();
       //*si es el ultimo cortar
       if (this.col >= this.targetWord.length) {
+        this.solving = true;
         //*check contra target word en allWords
         const word = this.board[this.row].map((cell) => cell.char).join("");
         if (this.isValidWord(word)) {
@@ -73,19 +75,28 @@ export default class GameManager {
     }
   }
   private setStatus() {
-    for (let i = 0; i < this.targetWord.length; i++) {
-      const tChar = this.targetWord[i];
-      for (let j = 0; j < this.board[this.row].length; j++) {
-        const cell = this.board[this.row][j];
-        if (tChar === cell.char && j === i && cell.status == "white") {
-          cell.status = "green";
-          break;
-        } else if (tChar === cell.char && cell.status == "white") {
-          cell.status = "yellow";
-          break;
+    const target = this.targetWord.split("");
+    //*green
+    for (let i = 0; i < this.board[this.row].length; i++) {
+      const cell = this.board[this.row][i];
+      if (cell.char === target[i]) {
+        cell.status = "green";
+        target[i] = "";
+      }
+    }
+    //*yellow
+    for (let j = 0; j < target.length; j++) {
+      if (target[j] !== "") {
+        for (let i = 0; i < this.board[this.row].length; i++) {
+          const cell = this.board[this.row][i];
+          if (cell.char === target[j]) {
+            cell.status = "yellow";
+            target[j] = "";
+          }
         }
       }
     }
+    //*gray
     this.board[this.row].forEach((cell) => {
       if (cell.status === "white") cell.status = "gray";
     });
@@ -117,6 +128,7 @@ export default class GameManager {
   public newWord() {
     this.gameOver = false;
     this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
+    // this.targetWord = "narvaez";
     console.log("SOLUCION :", this.targetWord);
     this.row = 0;
     this.col = 0;
@@ -127,8 +139,10 @@ export default class GameManager {
         cell.status = "white";
       }
     }
-    console.log(this.board);
     this.resetBoard();
     setTimeout(() => this.update(), 200);
+  }
+  set solve(value: boolean) {
+    this.solving = value;
   }
 }

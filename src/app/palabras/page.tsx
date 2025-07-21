@@ -46,6 +46,11 @@ export default function Palabras() {
               el.style.backgroundColor = getColor(cell.status);
               el.textContent = cell.char.toUpperCase();
             }
+            setTimeout(() => {
+              if (gm.current) {
+                gm.current.solve = false;
+              }
+            }, 1000);
           },
         });
       });
@@ -59,10 +64,12 @@ export default function Palabras() {
 
   function handleKeyDown(event: KeyboardEvent) {
     const key = event.key;
-    if (/^[a-zA-Z]$/.test(key)) {
-      gm.current?.setChar(key.toLowerCase());
-    } else if (key === "Backspace") {
-      gm.current?.setChar(key);
+    if (!gm.current?.gameOver) {
+      if (/^[a-zA-Z]$/.test(key)) {
+        gm.current?.setChar(key.toLowerCase());
+      } else if (key === "Backspace") {
+        gm.current?.setChar(key);
+      }
     }
   }
 
