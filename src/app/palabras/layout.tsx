@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import Menu from "@/components/menu/Menu";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,12 +10,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className=" bg-foreground   ">
-        <Menu />
-        {children}
-      </body>
-    </html>
-  );
+  return <div>{children}</div>;
 }

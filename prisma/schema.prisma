@@ -13,12 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ChatUser {
-  id            String   @id
-  userId        String   @default("")
-  userName      String   @default("")
-  lastMessage   String   @default("")
-  messageCount  Int      @default(0)
-  lastUpdatedAt DateTime @updatedAt
-  createdAt     DateTime @default(now())
+model Palabra {
+  texto              String @id
+  frecuenciaAbsoluta Int
+  frecuenciaNorm     Float
+}
+
+model Word {
+  name       String @id
+  difficulty Int
 }

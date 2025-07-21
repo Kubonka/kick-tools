@@ -16,7 +16,7 @@ import { Separator } from "../ui/separator";
 function Menu() {
   //!IMPLEMENTAR NAV BAR
   const router = useRouter();
-  const [title, setTitle] = useState("ASD");
+  const [title, setTitle] = useState("");
   return (
     <div className="flex flex-row justify-around m-2">
       <Label className="w-[90%] text-center text-foreground font-bold text-[26px]">
@@ -41,6 +41,15 @@ function Menu() {
             className="text-[16px] font-semibold cursor-pointer"
           >
             Home
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              router.push("/palabras");
+              setTitle("PALABRAS");
+            }}
+            className="text-[16px] font-semibold cursor-pointer"
+          >
+            Palabras
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
