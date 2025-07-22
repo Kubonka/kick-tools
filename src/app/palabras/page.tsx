@@ -17,8 +17,8 @@ export default function Palabras() {
   const [currentAnimRow, setCurrentAnimRow] = useState<number | null>(null);
   const gm = useRef<GameManager | null>(null);
 
-  // 👇 Ref a cada fila (no celda)
   const rowRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     init();
@@ -133,13 +133,21 @@ export default function Palabras() {
 
   function handleNewWord() {
     gm.current?.newWord();
-    const cells = rowRef.current?.querySelectorAll(".cell");
-    cells?.forEach((el) => {
+    const allCells = containerRef.current?.querySelectorAll(".cell");
+    console.log(allCells?.length);
+    allCells?.forEach((el) => {
       if (el instanceof HTMLElement) {
         el.style.backgroundColor = "#ffffff";
         el.textContent = "";
       }
     });
+    // const cells = rowRef.current?.querySelectorAll(".cell");
+    // cells?.forEach((el) => {
+    //   if (el instanceof HTMLElement) {
+    //     el.style.backgroundColor = "#ffffff";
+    //     el.textContent = "";
+    //   }
+    // });
   }
 
   function getColor(status: Status): string {
@@ -158,7 +166,10 @@ export default function Palabras() {
   }
 
   return (
-    <div className="bg-foreground flex flex-col gap-4 w-full h-full p-8 justify-center items-center">
+    <div
+      className="bg-foreground flex flex-col gap-4 w-full h-full p-8 justify-center items-center"
+      ref={containerRef}
+    >
       <Button className="bg-primary w-48" onClick={handleNewWord}>
         Nueva Palabra
       </Button>
