@@ -25,7 +25,7 @@ export default function Home() {
   emotes: null
 }*/
   return (
-    <div className="bg-background w-full h-full">
+    <div className="w-full h-full">
       <Button variant={"default"} className="bg-primary rounded-[8px]">
         Home
       </Button>

@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className=" bg-foreground   ">
+      <body className=" bg-blue-100 w-screen h-screen pt-2  ">
         <Menu />
         {children}
       </body>

@@ -12,6 +12,7 @@ export default class GameManager {
   private solving = false;
   private allWords: Words;
   private pool: Words;
+  private streakCount = 0;
   private targetWord: string = "";
   private render: RenderFunctions = {
     update: () => {},
@@ -49,11 +50,9 @@ export default class GameManager {
       }))
     );
   }
-
   public setChar(char: string): boolean {
     if (this.solving) return false;
     if (char === "Backspace") {
-      //todo si es backspace
       if (this.col > 0) {
         this.col--;
         this.board[this.row][this.col].char = "";
@@ -65,9 +64,7 @@ export default class GameManager {
       this.board[this.row][this.col].char = char;
       this.col++;
       this.render.update();
-      //*si es el ultimo cortar
       if (this.col >= this.targetWord.length) {
-        //*check contra target word en allWords
         const word = this.board[this.row].map((cell) => cell.char).join("");
         if (this.isValidWord(word)) {
           this.solving = true;
@@ -75,7 +72,7 @@ export default class GameManager {
           this.row++;
           this.col = 0;
           this.render.animateFlip();
-          this.isGameOver();
+          this.checkGameOver();
           return true;
         } else {
           this.render.animateWrong();
@@ -85,7 +82,6 @@ export default class GameManager {
       return true;
     }
   }
-
   private setStatus() {
     const target = this.targetWord.split("");
     const guess = this.board[this.row].map((cell) => cell.char);
@@ -107,18 +103,22 @@ export default class GameManager {
       }
     }
   }
-
-  private isGameOver() {
+  private checkGameOver() {
     const greenChars = this.board[this.row - 1].filter(
       (cell) => cell.status === "green"
     );
 
-    if (
-      this.row >= this.targetWord.length ||
-      greenChars.length === this.targetWord.length
-    ) {
+    if (this.row >= this.targetWord.length) {
       this.gameOver = true;
-      console.log("GAME OVER");
+      this.streakCount = 0;
+      this.render.update();
+    }
+    if (greenChars.length === this.targetWord.length) {
+      setTimeout(() => {
+        this.gameOver = true;
+        this.streakCount++;
+        this.render.update();
+      }, 2500);
     }
   }
   private isValidWord(word: string): boolean {
@@ -134,8 +134,6 @@ export default class GameManager {
   public newWord() {
     this.gameOver = false;
     this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
-    //this.targetWord = "visita";
-    console.log("SOLUCION :", this.targetWord);
     this.row = 0;
     this.col = 0;
     for (let i = 0; i < this.board.length; i++) {
@@ -150,5 +148,11 @@ export default class GameManager {
   }
   set solve(value: boolean) {
     this.solving = value;
+  }
+  get target() {
+    return this.targetWord;
+  }
+  get streak() {
+    return this.streakCount;
   }
 }

@@ -134,20 +134,12 @@ export default function Palabras() {
   function handleNewWord() {
     gm.current?.newWord();
     const allCells = containerRef.current?.querySelectorAll(".cell");
-    console.log(allCells?.length);
     allCells?.forEach((el) => {
       if (el instanceof HTMLElement) {
         el.style.backgroundColor = "#ffffff";
         el.textContent = "";
       }
     });
-    // const cells = rowRef.current?.querySelectorAll(".cell");
-    // cells?.forEach((el) => {
-    //   if (el instanceof HTMLElement) {
-    //     el.style.backgroundColor = "#ffffff";
-    //     el.textContent = "";
-    //   }
-    // });
   }
 
   function getColor(status: Status): string {
@@ -167,10 +159,13 @@ export default function Palabras() {
 
   return (
     <div
-      className="bg-foreground flex flex-col gap-4 w-full h-full p-8 justify-center items-center"
+      className=" flex flex-col gap-4 w-full h-full p-8 justify-center items-center"
       ref={containerRef}
     >
-      <Button className="bg-primary w-48" onClick={handleNewWord}>
+      <div className="text-2xl font-semibold cursor-default select-none">
+        {"Racha : " + (gm.current?.streak || "0")}
+      </div>
+      <Button className="bg-primary w-48 mb-4" onClick={handleNewWord}>
         Nueva Palabra
       </Button>
       {gm.current?.board.map((row, rowIndex) => (
@@ -182,7 +177,7 @@ export default function Palabras() {
           {row.map((cell, colIndex) => (
             <div
               key={colIndex}
-              className="cell flex border-1 border-primary w-12 h-12 rounded-[8px] justify-center items-center font-bold text-2xl"
+              className="cell flex w-12 h-12 rounded-[8px] justify-center items-center font-bold text-2xl cursor-default select-none"
               style={{ backgroundColor: "#ffffff" }}
             >
               {cell.char.toUpperCase() || " "}
@@ -190,6 +185,9 @@ export default function Palabras() {
           ))}
         </div>
       ))}
+      <div className="h-24 text-5xl align-middle font-bold mt-4 text-shadow-slate-950">
+        {gm.current?.gameOver ? gm.current?.target.toUpperCase() : ""}
+      </div>
     </div>
   );
 }
