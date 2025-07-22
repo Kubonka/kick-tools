@@ -57,10 +57,10 @@ export default class GameManager {
       this.update();
       //*si es el ultimo cortar
       if (this.col >= this.targetWord.length) {
-        this.solving = true;
         //*check contra target word en allWords
         const word = this.board[this.row].map((cell) => cell.char).join("");
         if (this.isValidWord(word)) {
+          this.solving = true;
           this.setStatus();
           this.row++;
           this.col = 0;
