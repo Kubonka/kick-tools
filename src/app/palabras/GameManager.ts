@@ -1,6 +1,11 @@
 type Words = string[];
 type Status = "white" | "gray" | "yellow" | "green";
 type Cell = { char: string; status: Status };
+type RenderFunctions = {
+  update: () => void;
+  animateFlip: () => void;
+  animateWrong: () => void;
+};
 
 export default class GameManager {
   public gameOver = false;
@@ -8,8 +13,11 @@ export default class GameManager {
   private allWords: Words;
   private pool: Words;
   private targetWord: string = "";
-  private update: () => void;
-  private animate: () => void;
+  private render: RenderFunctions = {
+    update: () => {},
+    animateFlip: () => {},
+    animateWrong: () => {},
+  };
   public row = 0;
   private col = 0;
   public board: Cell[][];
@@ -17,18 +25,20 @@ export default class GameManager {
     allWords: Words,
     pool: Words,
     update: () => void,
-    animate: () => void
+    animateFlip: () => void,
+    animateWrong: () => void
   ) {
     this.allWords = allWords;
     this.pool = pool;
-    this.update = update;
-    this.animate = animate;
+    this.render.update = update;
+    this.render.animateFlip = animateFlip;
+    this.render.animateWrong = animateWrong;
     this.board = [];
   }
   public newGame() {
     this.newWord();
     this.resetBoard();
-    this.update();
+    this.render.update();
   }
   private resetBoard() {
     const size = this.getBoardSize();
@@ -47,14 +57,14 @@ export default class GameManager {
       if (this.col > 0) {
         this.col--;
         this.board[this.row][this.col].char = "";
-        this.update();
+        this.render.update();
         return true;
       } else return false;
     } else {
       if (this.col > this.targetWord.length - 1) return false;
       this.board[this.row][this.col].char = char;
       this.col++;
-      this.update();
+      this.render.update();
       //*si es el ultimo cortar
       if (this.col >= this.targetWord.length) {
         //*check contra target word en allWords
@@ -64,43 +74,71 @@ export default class GameManager {
           this.setStatus();
           this.row++;
           this.col = 0;
-          this.animate();
+          this.render.animateFlip();
           this.isGameOver();
           return true;
         } else {
+          this.render.animateWrong();
           return false;
         }
       }
       return true;
     }
   }
+  // private setStatus() {
+  //   // const target = this.targetWord.split("");
+  //   // //*green
+  //   // for (let i = 0; i < this.board[this.row].length; i++) {
+  //   //   const cell = this.board[this.row][i];
+  //   //   if (cell.char === target[i]) {
+  //   //     cell.status = "green";
+  //   //     target[i] = "";
+  //   //   }
+  //   // }
+  //   // //*yellow
+  //   // for (let j = 0; j < target.length; j++) {
+  //   //   if (target[j] !== "") {
+  //   //     for (let i = 0; i < this.board[this.row].length; i++) {
+  //   //       const cell = this.board[this.row][i];
+  //   //       if (cell.char === target[j] && cell.status !== "green") {
+  //   //         cell.status = "yellow";
+  //   //         target[j] = "";
+  //   //       }
+  //   //     }
+  //   //   }
+  //   // }
+  //   // //*gray
+  //   // this.board[this.row].forEach((cell) => {
+  //   //   if (cell.status === "white") cell.status = "gray";
+  //   // });
+  // }
   private setStatus() {
     const target = this.targetWord.split("");
-    //*green
-    for (let i = 0; i < this.board[this.row].length; i++) {
-      const cell = this.board[this.row][i];
-      if (cell.char === target[i]) {
-        cell.status = "green";
+    const guess = this.board[this.row].map((cell) => cell.char);
+
+    // 1. Mark greens
+    for (let i = 0; i < guess.length; i++) {
+      if (guess[i] === target[i]) {
+        this.board[this.row][i].status = "green";
         target[i] = "";
+        guess[i] = "_"; // placeholder to skip later
       }
     }
-    //*yellow
-    for (let j = 0; j < target.length; j++) {
-      if (target[j] !== "") {
-        for (let i = 0; i < this.board[this.row].length; i++) {
-          const cell = this.board[this.row][i];
-          if (cell.char === target[j]) {
-            cell.status = "yellow";
-            target[j] = "";
-          }
-        }
+
+    // 2. Mark yellows or grays
+    for (let i = 0; i < guess.length; i++) {
+      if (guess[i] === "_") continue; // skip already matched
+
+      const idx = target.indexOf(guess[i]);
+      if (idx !== -1) {
+        this.board[this.row][i].status = "yellow";
+        target[idx] = ""; // block that letter
+      } else {
+        this.board[this.row][i].status = "gray";
       }
     }
-    //*gray
-    this.board[this.row].forEach((cell) => {
-      if (cell.status === "white") cell.status = "gray";
-    });
   }
+
   private isGameOver() {
     const greenChars = this.board[this.row - 1].filter(
       (cell) => cell.status === "green"
@@ -119,7 +157,6 @@ export default class GameManager {
     this.allWords.forEach((w) => {
       if (w === word) found = true;
     });
-    console.log(found);
     return found;
   }
   private getBoardSize() {
@@ -128,7 +165,7 @@ export default class GameManager {
   public newWord() {
     this.gameOver = false;
     this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
-    // this.targetWord = "narvaez";
+    //this.targetWord = "visita";
     console.log("SOLUCION :", this.targetWord);
     this.row = 0;
     this.col = 0;
@@ -140,7 +177,7 @@ export default class GameManager {
       }
     }
     this.resetBoard();
-    setTimeout(() => this.update(), 200);
+    setTimeout(() => this.render.update(), 200);
   }
   set solve(value: boolean) {
     this.solving = value;

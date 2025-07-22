@@ -12,7 +12,9 @@ type Status = "white" | "gray" | "yellow" | "green";
 
 export default function Palabras() {
   const [, setUpdate] = useState(false);
-  const [animate, setAnimate] = useState(false);
+  const [animateFlip, setAnimateFlip] = useState(false);
+  const [animateWrong, setAnimateWrong] = useState(false);
+  const [currentAnimRow, setCurrentAnimRow] = useState<number | null>(null);
   const gm = useRef<GameManager | null>(null);
 
   // 👇 Ref a cada fila (no celda)
@@ -28,6 +30,74 @@ export default function Palabras() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+  // useGSAP(
+  //   () => {
+  //     console.log("entra");
+  //     if (!rowRef.current) return;
+  //     const cells = rowRef.current.querySelectorAll(".cell");
+
+  //     cells.forEach((el, i) => {
+  //       const cell = gm.current?.board[gm.current.row - 1][i] as Cell;
+
+  //       const tl = gsap.timeline();
+
+  //       tl.to(el, { x: -10, duration: 0.05, ease: "power1.inOut" })
+  //         .to(el, { x: 10, duration: 0.05, ease: "power1.inOut" })
+  //         .to(el, { x: -8, duration: 0.05, ease: "power1.inOut" })
+  //         .to(el, { x: 8, duration: 0.05, ease: "power1.inOut" })
+  //         .to(el, { x: -5, duration: 0.05, ease: "power1.inOut" })
+  //         .to(el, { x: 5, duration: 0.05, ease: "power1.inOut" })
+  //         .to(el, { x: 0, duration: 0.05, ease: "power1.inOut" });
+
+  //       // Optional: callback on last element
+  //       if (i === cells.length - 1) {
+  //         tl.call(() => {
+  //           if (gm.current) {
+  //             gm.current.solve = false;
+  //           }
+  //         });
+  //       }
+  //     });
+  //   },
+  //   {
+  //     scope: rowRef,
+  //     dependencies: [animateWrong],
+  //     revertOnUpdate: false,
+  //   }
+  // );
+  useGSAP(
+    () => {
+      console.log("Q2E", rowRef.current);
+      if (!rowRef.current) return;
+      const cells = rowRef.current.querySelectorAll(".cell");
+
+      // Animate all cells together in sync
+      console.log("QWE");
+      gsap.to(cells, {
+        keyframes: [
+          { x: -10, duration: 0.05 },
+          { x: 10, duration: 0.05 },
+          { x: -8, duration: 0.05 },
+          { x: 8, duration: 0.05 },
+          { x: -5, duration: 0.05 },
+          { x: 5, duration: 0.05 },
+          { x: 0, duration: 0.05 },
+        ],
+        ease: "power1.inOut",
+        onComplete: () => {
+          // any callback logic here
+          if (gm.current) {
+            gm.current.solve = false;
+          }
+        },
+      });
+    },
+    {
+      scope: rowRef,
+      dependencies: [animateWrong],
+      revertOnUpdate: false,
+    }
+  );
 
   useGSAP(
     () => {
@@ -57,7 +127,7 @@ export default function Palabras() {
     },
     {
       scope: rowRef,
-      dependencies: [animate],
+      dependencies: [animateFlip],
       revertOnUpdate: false,
     }
   );
@@ -82,7 +152,14 @@ export default function Palabras() {
           allWords,
           pool,
           () => setUpdate((prev) => !prev),
-          () => setAnimate((prev) => !prev)
+          () => {
+            setCurrentAnimRow(gm.current!.row - 1); // para flip, animar fila anterior
+            setAnimateFlip((prev) => !prev);
+          },
+          () => {
+            setCurrentAnimRow(gm.current!.row); // para wrong, animar fila actual
+            setAnimateWrong((prev) => !prev);
+          }
         );
         gm.current.newGame();
       }
@@ -126,18 +203,13 @@ export default function Palabras() {
         <div
           className="flex flex-row gap-2"
           key={rowIndex}
-          ref={rowIndex + 1 === gm.current?.row ? rowRef : null}
+          ref={rowIndex === currentAnimRow ? rowRef : null}
         >
           {row.map((cell, colIndex) => (
             <div
               key={colIndex}
               className="cell flex border-1 border-primary w-12 h-12 rounded-[8px] justify-center items-center font-bold text-2xl"
-              style={{
-                backgroundColor:
-                  rowIndex + 1 === gm.current?.row
-                    ? "#ffffff"
-                    : getColor(cell.status),
-              }}
+              style={{ backgroundColor: "#ffffff" }}
             >
               {cell.char.toUpperCase() || " "}
             </div>
