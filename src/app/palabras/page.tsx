@@ -30,49 +30,12 @@ export default function Palabras() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  // useGSAP(
-  //   () => {
-  //     console.log("entra");
-  //     if (!rowRef.current) return;
-  //     const cells = rowRef.current.querySelectorAll(".cell");
 
-  //     cells.forEach((el, i) => {
-  //       const cell = gm.current?.board[gm.current.row - 1][i] as Cell;
-
-  //       const tl = gsap.timeline();
-
-  //       tl.to(el, { x: -10, duration: 0.05, ease: "power1.inOut" })
-  //         .to(el, { x: 10, duration: 0.05, ease: "power1.inOut" })
-  //         .to(el, { x: -8, duration: 0.05, ease: "power1.inOut" })
-  //         .to(el, { x: 8, duration: 0.05, ease: "power1.inOut" })
-  //         .to(el, { x: -5, duration: 0.05, ease: "power1.inOut" })
-  //         .to(el, { x: 5, duration: 0.05, ease: "power1.inOut" })
-  //         .to(el, { x: 0, duration: 0.05, ease: "power1.inOut" });
-
-  //       // Optional: callback on last element
-  //       if (i === cells.length - 1) {
-  //         tl.call(() => {
-  //           if (gm.current) {
-  //             gm.current.solve = false;
-  //           }
-  //         });
-  //       }
-  //     });
-  //   },
-  //   {
-  //     scope: rowRef,
-  //     dependencies: [animateWrong],
-  //     revertOnUpdate: false,
-  //   }
-  // );
   useGSAP(
     () => {
-      console.log("Q2E", rowRef.current);
       if (!rowRef.current) return;
       const cells = rowRef.current.querySelectorAll(".cell");
 
-      // Animate all cells together in sync
-      console.log("QWE");
       gsap.to(cells, {
         keyframes: [
           { x: -10, duration: 0.05 },
