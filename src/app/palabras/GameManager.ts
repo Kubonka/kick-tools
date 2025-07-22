@@ -85,54 +85,23 @@ export default class GameManager {
       return true;
     }
   }
-  // private setStatus() {
-  //   // const target = this.targetWord.split("");
-  //   // //*green
-  //   // for (let i = 0; i < this.board[this.row].length; i++) {
-  //   //   const cell = this.board[this.row][i];
-  //   //   if (cell.char === target[i]) {
-  //   //     cell.status = "green";
-  //   //     target[i] = "";
-  //   //   }
-  //   // }
-  //   // //*yellow
-  //   // for (let j = 0; j < target.length; j++) {
-  //   //   if (target[j] !== "") {
-  //   //     for (let i = 0; i < this.board[this.row].length; i++) {
-  //   //       const cell = this.board[this.row][i];
-  //   //       if (cell.char === target[j] && cell.status !== "green") {
-  //   //         cell.status = "yellow";
-  //   //         target[j] = "";
-  //   //       }
-  //   //     }
-  //   //   }
-  //   // }
-  //   // //*gray
-  //   // this.board[this.row].forEach((cell) => {
-  //   //   if (cell.status === "white") cell.status = "gray";
-  //   // });
-  // }
+
   private setStatus() {
     const target = this.targetWord.split("");
     const guess = this.board[this.row].map((cell) => cell.char);
-
-    // 1. Mark greens
     for (let i = 0; i < guess.length; i++) {
       if (guess[i] === target[i]) {
         this.board[this.row][i].status = "green";
         target[i] = "";
-        guess[i] = "_"; // placeholder to skip later
+        guess[i] = "_";
       }
     }
-
-    // 2. Mark yellows or grays
     for (let i = 0; i < guess.length; i++) {
-      if (guess[i] === "_") continue; // skip already matched
-
+      if (guess[i] === "_") continue;
       const idx = target.indexOf(guess[i]);
       if (idx !== -1) {
         this.board[this.row][i].status = "yellow";
-        target[idx] = ""; // block that letter
+        target[idx] = "";
       } else {
         this.board[this.row][i].status = "gray";
       }
