@@ -138,7 +138,7 @@ export default class GameManager {
     this.gameOver = false;
     this.gameWon = false;
     this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
-    this.targetWord = "visita";
+
     this.row = 0;
     this.col = 0;
     for (let i = 0; i < this.board.length; i++) {
