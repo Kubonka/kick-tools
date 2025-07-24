@@ -38,24 +38,24 @@ export default function Palabras() {
 
   //! LOCAL STORAGE
   // useEffect(() => {
-  //   const storedName = localStorage.getItem("name");
+  //   const storedName = sessionStorage.getItem("name");
   //   if (storedName) {
   //     setName(storedName);
   //   }
   // }, []);
 
-  // Guardar en localStorage cada vez que el usuario escribe
+  // Guardar en sessionStorage cada vez que el usuario escribe
   // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const newName = e.target.value;
   //   setName(newName);
-  //   localStorage.setItem("name", newName);
+  //   sessionStorage.setItem("name", newName);
   // };
   useEffect(() => {
     if (dialogOpen) {
-      const streak = localStorage.getItem("streak");
-      const time5 = localStorage.getItem("5");
-      const time6 = localStorage.getItem("6");
-      const time7 = localStorage.getItem("7");
+      const streak = sessionStorage.getItem("streak");
+      const time5 = sessionStorage.getItem("5");
+      const time6 = sessionStorage.getItem("6");
+      const time7 = sessionStorage.getItem("7");
 
       setBestStreak(streak ? parseInt(streak) : null);
       setBestTimes({
@@ -67,7 +67,6 @@ export default function Palabras() {
   }, [dialogOpen]);
   useEffect(() => {
     init();
-    localStorage.setItem("hola", "hola");
   }, []);
 
   useEffect(() => {
@@ -164,19 +163,20 @@ export default function Palabras() {
     if (gm.current?.gameWon) {
       //*time
       const wordSize = gm.current?.getBoardSize();
-      const storeTime = localStorage.getItem(wordSize.toString());
+      const storeTime = sessionStorage.getItem(wordSize.toString());
+      console.log(storeTime);
       let bestTime = 0;
       if (storeTime) bestTime = parseInt(storeTime);
-      if (time > bestTime) {
-        localStorage.setItem(wordSize.toString(), time.toString());
+      if (time < bestTime) {
+        sessionStorage.setItem(wordSize.toString(), time.toString());
       }
       //* streak
-      const storeStreak = localStorage.getItem("streak");
+      const storeStreak = sessionStorage.getItem("streak");
       let bestStreak = 0;
       if (storeStreak) bestStreak = parseInt(storeStreak);
       const currentStreak = gm.current?.streak as number;
       if (currentStreak > bestStreak) {
-        localStorage.setItem("streak", currentStreak.toString());
+        sessionStorage.setItem("streak", currentStreak.toString());
       }
     } else {
       return;
