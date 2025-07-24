@@ -1,39 +1,39 @@
 import axios from "axios";
 import path from "path";
 import fs from "fs";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-export async function POST() {
-  try {
-    const palabras: {
-      texto: string;
-      frecuenciaAbsoluta: number;
-      frecuenciaNorm: number;
-    }[] = await prisma.$queryRaw`
-      SELECT * FROM "Palabra"
-      WHERE LENGTH(texto) IN (5, 6, 7, 8)
-    `;
-    const pool = palabras
-      .filter((p) => p.frecuenciaAbsoluta > 400)
-      .map((p) => p.texto);
-    const outputPath = path.join(
-      process.cwd(),
-      "src/app/api/scrable/scrableWords.json"
-    );
-    const jsonOutput = JSON.stringify(pool, null, 2); // bonito con indentación
-    fs.writeFileSync(outputPath, jsonOutput, "utf-8");
-    return Response.json({ success: true, msg: "OK" }, { status: 200 });
-  } catch (err: unknown) {
-    if (axios.isAxiosError(err)) {
-      console.error("[PROCESS ERROR]", err.response?.data || err.message);
-      return Response.json(
-        { success: false, error: err.response?.data || err.message },
-        { status: 500 }
-      );
-    }
-    return Response.json({ success: false, error: err }, { status: 500 });
-  }
-}
+//import { PrismaClient } from "@prisma/client";
+//const prisma = new PrismaClient();
+// export async function POST() {
+//   try {
+//     const palabras: {
+//       texto: string;
+//       frecuenciaAbsoluta: number;
+//       frecuenciaNorm: number;
+//     }[] = await prisma.$queryRaw`
+//       SELECT * FROM "Palabra"
+//       WHERE LENGTH(texto) IN (5, 6, 7, 8)
+//     `;
+//     const pool = palabras
+//       .filter((p) => p.frecuenciaAbsoluta > 400)
+//       .map((p) => p.texto);
+//     const outputPath = path.join(
+//       process.cwd(),
+//       "src/app/api/scrable/scrableWords.json"
+//     );
+//     const jsonOutput = JSON.stringify(pool, null, 2); // bonito con indentación
+//     fs.writeFileSync(outputPath, jsonOutput, "utf-8");
+//     return Response.json({ success: true, msg: "OK" }, { status: 200 });
+//   } catch (err: unknown) {
+//     if (axios.isAxiosError(err)) {
+//       console.error("[PROCESS ERROR]", err.response?.data || err.message);
+//       return Response.json(
+//         { success: false, error: err.response?.data || err.message },
+//         { status: 500 }
+//       );
+//     }
+//     return Response.json({ success: false, error: err }, { status: 500 });
+//   }
+// }
 
 export async function GET() {
   try {
