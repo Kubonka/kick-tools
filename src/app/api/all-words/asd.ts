@@ -1,33 +1,3 @@
-import axios from "axios";
-import path from "path";
-import fs from "fs";
-
-export async function GET() {
-  try {
-    const filePath1 = path.join(
-      process.cwd(),
-      "src/app/api/all-words/pool.json"
-    );
-    const filePath2 = path.join(
-      process.cwd(),
-      "src/app/api/all-words/allWords.json"
-    );
-    const fileContents1 = fs.readFileSync(filePath1, "utf8");
-    const fileContents2 = fs.readFileSync(filePath2, "utf8");
-    const data1 = JSON.parse(fileContents1);
-    const data2 = JSON.parse(fileContents2);
-    return Response.json({ pool: data1, allWords: data2 });
-  } catch (err: unknown) {
-    if (axios.isAxiosError(err)) {
-      console.error("[PROCESS ERROR]", err.response?.data || err.message);
-      return Response.json(
-        { success: false, error: err.response?.data || err.message },
-        { status: 500 }
-      );
-    }
-    return Response.json({ success: false, error: err }, { status: 500 });
-  }
-}
 const a = [
   "hacer",
   "primer",
@@ -304,36 +274,3 @@ const a = [
   "*garcia",
   "merecer",
 ];
-export async function POST() {
-  try {
-    const filePath1 = path.join(
-      process.cwd(),
-      "src/app/api/all-words/pool.json"
-    );
-
-    const fileContents1 = fs.readFileSync(filePath1, "utf8");
-    const data1: string[] = JSON.parse(fileContents1);
-    console.log("s", data1.length);
-    console.log("s", data1[10]);
-    const marcadas: string[] = data1.filter((w) => w.includes("*"));
-    console.log(marcadas.length, marcadas[1]);
-
-    const aux = a
-      .filter((w) => w.includes("*"))
-      .map((p) => (p.startsWith("*") ? p.slice(1) : p));
-
-    console.log(aux[1], aux[2], "11");
-
-    const resultado = data1.filter((palabra) => !aux.includes(palabra));
-    const outputPath = path.join(
-      process.cwd(),
-      "src/app/api/all-words/pool2.json"
-    );
-    const jsonOutput = JSON.stringify(resultado, null, 2); // bonito con indentación
-    fs.writeFileSync(outputPath, jsonOutput, "utf-8");
-    return Response.json(marcadas);
-  } catch (error) {
-    console.log(error);
-    return Response.json("{}");
-  }
-}

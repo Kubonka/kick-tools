@@ -12,6 +12,7 @@ export default class GameManager {
   private solving = false;
   private allWords: Words;
   private pool: Words;
+  public gameWon = true;
   private streakCount = 0;
   private targetWord: string = "";
   private render: RenderFunctions = {
@@ -112,12 +113,14 @@ export default class GameManager {
       this.gameOver = true;
       this.streakCount = 0;
       this.render.update();
+      this.gameWon = false;
     }
     if (greenChars.length === this.targetWord.length) {
       setTimeout(() => {
         this.gameOver = true;
         this.streakCount++;
         this.render.update();
+        this.gameWon = true;
       }, 2500);
     }
   }
@@ -128,12 +131,14 @@ export default class GameManager {
     });
     return found;
   }
-  private getBoardSize() {
+  public getBoardSize() {
     return this.targetWord.length;
   }
   public newWord() {
     this.gameOver = false;
+    this.gameWon = false;
     this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
+    this.targetWord = "visita";
     this.row = 0;
     this.col = 0;
     for (let i = 0; i < this.board.length; i++) {
