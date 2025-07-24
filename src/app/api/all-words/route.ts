@@ -313,8 +313,6 @@ export async function POST() {
 
     const fileContents1 = fs.readFileSync(filePath1, "utf8");
     const data1: string[] = JSON.parse(fileContents1);
-    console.log("s", data1.length);
-    console.log("s", data1[10]);
     const marcadas: string[] = data1.filter((w) => w.includes("*"));
     console.log(marcadas.length, marcadas[1]);
 
