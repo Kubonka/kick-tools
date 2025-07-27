@@ -164,10 +164,12 @@ export default function Palabras() {
       //*time
       const wordSize = gm.current?.getBoardSize();
       const storeTime = sessionStorage.getItem(wordSize.toString());
-      console.log(storeTime);
       let bestTime = 0;
       if (storeTime) bestTime = parseInt(storeTime);
+      console.log(storeTime);
+      console.log(time);
       if (time < bestTime) {
+        console.log("guarda");
         sessionStorage.setItem(wordSize.toString(), time.toString());
       }
       //* streak
