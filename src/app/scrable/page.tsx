@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
@@ -31,20 +31,20 @@ export default function Scrable() {
   useEffect(() => {
     init();
   }, []);
-  async function generate(allChars: string[], maxLen: number) {
-    try {
-      const res = await axios.put("/api/scrable", {
-        dict: dict.current,
-        allChars,
-        maxLen,
-      });
-      if (res.data) {
-        return res.data;
-      }
-    } catch (error) {
-      console.error("Error generando palabras: ", error);
-    }
-  }
+  // async function generate(allChars: string[], maxLen: number) {
+  //   try {
+  //     const res = await axios.put("/api/scrable", {
+  //       dict: dict.current,
+  //       allChars,
+  //       maxLen,
+  //     });
+  //     if (res.data) {
+  //       return res.data;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error generando palabras: ", error);
+  //   }
+  // }
   async function init() {
     try {
       const res = await axios.get("/api/scrable");
@@ -108,23 +108,42 @@ export default function Scrable() {
   // }
 
   //! control de cells
-  const setBgColor = (index: number): string => {
-    switch (cells[index].status) {
-      case "2L":
-        return "bg-blue-600";
-      case "3L":
-        return "bg-green-500";
-      case "2P":
-        return "bg-orange-400";
-      case "3P":
-        return "bg-red-500";
-      case "LOCKED":
-        return "bg-slate-700";
-      default:
-        return "bg-white";
-        break;
-    }
-  };
+  const setBgColor = useCallback(
+    (index: number): string => {
+      switch (cells[index].status) {
+        case "2L":
+          return "bg-blue-600";
+        case "3L":
+          return "bg-green-500";
+        case "2P":
+          return "bg-orange-400";
+        case "3P":
+          return "bg-red-500";
+        case "LOCKED":
+          return "bg-slate-700";
+        default:
+          return "bg-white";
+      }
+    },
+    [cells]
+  );
+  // const setBgColor = (index: number): string => {
+  //   switch (cells[index].status) {
+  //     case "2L":
+  //       return "bg-blue-600";
+  //     case "3L":
+  //       return "bg-green-500";
+  //     case "2P":
+  //       return "bg-orange-400";
+  //     case "3P":
+  //       return "bg-red-500";
+  //     case "LOCKED":
+  //       return "bg-slate-700";
+  //     default:
+  //       return "bg-white";
+  //       break;
+  //   }
+  // };
 
   const updateCell = React.useCallback((idx: number, patch: Partial<Cell>) => {
     setCells((prev) => {
@@ -134,6 +153,18 @@ export default function Scrable() {
     });
   }, []);
 
+  // const handleCharChange = useCallback(
+  //   (idx: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     const value = e.target.value;
+  //     const char = value.slice(-1).toUpperCase();
+  //     setCells((prev) => {
+  //       const next = [...prev];
+  //       next[idx] = { ...next[idx], char };
+  //       return next;
+  //     });
+  //   },
+  //   []
+  // );
   const handleCharChange =
     (idx: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
@@ -141,51 +172,194 @@ export default function Scrable() {
       const char = value.slice(-1).toUpperCase();
       updateCell(idx, { char });
     };
-  const handleStatusChange = (idx: number) => (value: string) => {
-    const v = value as Status;
+  const handleStatusChange = useCallback(
+    (idx: number) => (value: string) => {
+      const v = value as Status;
+      setCells((prev) => {
+        const next = [...prev];
+        next[idx] = {
+          ...next[idx],
+          status: v,
+          char: v === "BLANK" ? next[idx].char : "",
+        };
+        return next;
+      });
+    },
+    []
+  );
+  // const handleStatusChange = (idx: number) => (value: string) => {
+  //   const v = value as Status;
 
-    setCells((prev) => {
-      const next = [...prev];
-      next[idx] = {
-        ...next[idx],
-        status: v,
-        char: v === "BLANK" ? next[idx].char : "",
-      };
-      return next;
-    });
-  };
+  //   setCells((prev) => {
+  //     const next = [...prev];
+  //     next[idx] = {
+  //       ...next[idx],
+  //       status: v,
+  //       char: v === "BLANK" ? next[idx].char : "",
+  //     };
+  //     return next;
+  //   });
+  // };
   function handleReset() {
     setCells(cells.map(() => ({ char: "", status: "BLANK", value: 0 })));
     setResult([]);
     setGivenChars("");
-  }
-  //! PREPARAR INPUT
-
-  async function handleSearch() {
-    //todo agarra el array cells y prepara un array apto de letras que contenga las de cells y las de
-    const allChars: string[] = [];
-    cells.forEach((c) => {
-      if (c.char) {
-        allChars.push(c.char.toLowerCase());
-      }
-    });
-    givenChars.split("").forEach((c) => allChars.push(c.toLowerCase()));
-    console.log("allChars ", allChars);
-    const maxLen = getMaxLen();
-    const responseArr = await generate(allChars, maxLen);
-    console.log("responseArr", responseArr);
-    const validatedWords: ResultWord[] = [];
-    if (responseArr.length) {
-      validateWords(responseArr, validatedWords);
-      validatedWords.sort((a, b) => b.value - a.value);
-      setResult(validatedWords);
-      console.log("RESULT : ", validatedWords);
-    } else {
-      setResult([]);
-      console.log("NO RESULTS");
-    }
     setWorking(false);
   }
+  // const memoizedResults = useMemo(() => {
+  //   return (
+  //     <>
+  //       <ResultsColumn result={result} start={0} end={10} />
+  //       <ResultsColumn result={result} start={10} end={20} />
+  //     </>
+  //   );
+  // }, [result]);
+  //! PREPARAR INPUT
+  const getLockedIndices = useCallback((): [number, number] => {
+    let lock1 = -1;
+    let lock2 = -1;
+    for (let i = 0; i < Math.floor(cells.length / 2); i++) {
+      if (cells[i].status === "LOCKED") {
+        lock1 = i + 1;
+        break;
+      }
+    }
+    for (let i = cells.length - 1; i > Math.floor(cells.length / 2); i--) {
+      if (cells[i].status === "LOCKED") {
+        lock2 = i;
+        break;
+      }
+    }
+    return [lock1, lock2];
+  }, [cells]);
+  const getMaxLen = useCallback((): number => {
+    const [lock1, lock2] = getLockedIndices();
+    if (lock1 === -1 && lock2 === -1) return cells.length;
+    if (lock1 === -1 && lock2 !== -1) return lock2 + 1;
+    if (lock1 !== -1 && lock2 === -1) return cells.length - lock1;
+    return lock2 - lock1;
+  }, [cells, getLockedIndices]);
+  const handleSearch = useCallback(async () => {
+    if (working) return;
+    setWorking(true);
+    try {
+      const allChars: string[] = [
+        ...cells.filter((c) => c.char).map((c) => c.char.toLowerCase()),
+        ...givenChars.toLowerCase().split(""),
+      ];
+      const maxLen = getMaxLen();
+      const final: string[] = [];
+
+      if (dict.current) {
+        generarPermutacionesScrabble(
+          allChars,
+          2,
+          maxLen,
+          procesarCombinacion,
+          dict.current,
+          final
+        );
+        const final2 = [...new Set(final)];
+        const validatedWords: ResultWord[] = [];
+        if (final2.length) {
+          validateWords(final2, validatedWords);
+          validatedWords.sort((a, b) => b.value - a.value);
+          setResult(validatedWords);
+        } else {
+          setResult([]);
+        }
+      }
+    } finally {
+      setWorking(false);
+    }
+  }, [working, cells, givenChars, getMaxLen]);
+  // async function handleSearch() {
+  //   //todo agarra el array cells y prepara un array apto de letras que contenga las de cells y las de
+  //   const allChars: string[] = [];
+  //   cells.forEach((c) => {
+  //     if (c.char) {
+  //       allChars.push(c.char.toLowerCase());
+  //     }
+  //   });
+  //   givenChars.split("").forEach((c) => allChars.push(c.toLowerCase()));
+  //   const maxLen = getMaxLen();
+  //   const final: string[] = [];
+  //   if (dict.current) {
+  //     generarPermutacionesScrabble(
+  //       allChars,
+  //       2,
+  //       maxLen,
+  //       procesarCombinacion,
+  //       dict.current,
+  //       final
+  //     );
+  //     const final2 = [...new Set(final.flat(Infinity))];
+
+  //     //const responseArr = await generate(allChars, maxLen);
+  //     //console.log("responseArr", responseArr);
+  //     const validatedWords: ResultWord[] = [];
+  //     if (final2.length) {
+  //       validateWords(final2, validatedWords);
+  //       validatedWords.sort((a, b) => b.value - a.value);
+  //       setResult(validatedWords);
+  //     } else {
+  //       setResult([]);
+  //     }
+  //   }
+  // }
+  function procesarCombinacion(word: string, dict: Dict, final: string[]) {
+    const ordWord = word.split("").sort().join("");
+    const arr = dict;
+
+    if (arr && arr[ordWord]) {
+      arr[ordWord].forEach((str) => {
+        final.push(str);
+      });
+    }
+  }
+  /**
+   * Genera todas las permutaciones posibles de longitud variable (de minLen a maxLen)
+   * usando las letras disponibles, y llama a procesarCombinacion por cada una.
+   *
+   * @param letras Array de letras disponibles (puede contener repetidas).
+   * @param minLen Longitud mínima de palabra.
+   * @param maxLen Longitud máxima de palabra.
+   * @param procesarCombinacion Función que recibe cada palabra generada.
+   */
+  function generarPermutacionesScrabble(
+    letras: string[],
+    minLen: number,
+    maxLen: number,
+    procesarCombinacion: (word: string, dict: Dict, final: string[]) => void,
+    dict: Dict,
+    final: string[]
+  ) {
+    const letraCount: Record<string, number> = {};
+    for (const letra of letras) {
+      letraCount[letra] = (letraCount[letra] || 0) + 1;
+    }
+
+    function backtrack(path: string[], nivel: number) {
+      if (path.length >= minLen && path.length <= maxLen) {
+        procesarCombinacion(path.join(""), dict, final);
+      }
+      if (path.length === maxLen) return;
+
+      for (const letra in letraCount) {
+        if (letraCount[letra] > 0) {
+          path.push(letra);
+          letraCount[letra]--;
+
+          backtrack(path, nivel + 1);
+
+          letraCount[letra]++;
+          path.pop();
+        }
+      }
+    }
+    backtrack([], 0);
+  }
+
   function validateWords(arr: string[], validated: ResultWord[]) {
     const [lock1, lock2] = getLockedIndices();
     const start = lock1 === -1 ? 0 : lock1;
@@ -353,36 +527,38 @@ export default function Scrable() {
     }
     return copy;
   }
-  function getLockedIndices() {
-    let lock1 = 0;
-    let lock2 = 0;
 
-    for (let i = 0; i < Math.floor(cells.length / 2); i++) {
-      if (cells[i].status === "LOCKED") {
-        lock1 = i + 1;
-        break;
-      }
-      lock1 = -1;
-    }
-    for (let i = cells.length - 1; i > Math.floor(cells.length / 2); i--) {
-      if (cells[i].status === "LOCKED") {
-        lock2 = i;
-        break;
-      }
-      lock2 = -1;
-    }
-    return [lock1, lock2];
-  }
-  const getMaxLen = (): number => {
-    const [lock1, lock2] = getLockedIndices();
-    if (lock1 === -1 && lock2 === -1) {
-      return cells.length; //!maximo posible
-    } else if (lock1 === -1 && lock2 != -1) {
-      return lock2 + 1;
-    } else if (lock1 != -1 && lock2 === -1) {
-      return cells.length - lock1;
-    } else return lock2 - lock1;
-  };
+  // function getLockedIndices() {
+  //   let lock1 = 0;
+  //   let lock2 = 0;
+
+  //   for (let i = 0; i < Math.floor(cells.length / 2); i++) {
+  //     if (cells[i].status === "LOCKED") {
+  //       lock1 = i + 1;
+  //       break;
+  //     }
+  //     lock1 = -1;
+  //   }
+  //   for (let i = cells.length - 1; i > Math.floor(cells.length / 2); i--) {
+  //     if (cells[i].status === "LOCKED") {
+  //       lock2 = i;
+  //       break;
+  //     }
+  //     lock2 = -1;
+  //   }
+  //   return [lock1, lock2];
+  // }
+
+  // const getMaxLen = (): number => {
+  //   const [lock1, lock2] = getLockedIndices();
+  //   if (lock1 === -1 && lock2 === -1) {
+  //     return cells.length; //!maximo posible
+  //   } else if (lock1 === -1 && lock2 != -1) {
+  //     return lock2 + 1;
+  //   } else if (lock1 != -1 && lock2 === -1) {
+  //     return cells.length - lock1;
+  //   } else return lock2 - lock1;
+  // };
   return (
     <div className="flex flex-col justify-center items-center gap-8">
       <div
@@ -435,9 +611,12 @@ export default function Scrable() {
       <div className=" flex flex-row gap-8">
         <Button
           className="w-[200px] cursor-pointer"
-          onClick={() => {
-            handleSearch();
-            setWorking(true);
+          onClick={async () => {
+            if (!working) {
+              setWorking(true);
+              await handleSearch();
+              setWorking(false);
+            }
           }}
           disabled={working}
         >
