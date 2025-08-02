@@ -240,6 +240,19 @@ export default class GameManager {
     this.render.setRewardDisplay(msg);
   }
 
+  public getYellowChars(): string[] {
+    //todo buscar en toda la matriz de cells las que sean de status GRAY
+    const yellowChars: string[] = [];
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board[i].length; j++) {
+        const cell = this.board[i][j];
+        if (cell.status === "yellow") {
+          yellowChars.push(cell.char);
+        }
+      }
+    }
+    return yellowChars;
+  }
   public getGrayChars(): string[] {
     //todo buscar en toda la matriz de cells las que sean de status GRAY
     const grayChars: string[] = [];
