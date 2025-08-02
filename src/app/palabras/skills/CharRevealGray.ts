@@ -3,7 +3,7 @@ import GameManager from "../GameManager";
 
 export class CharRevealGray extends Skill {
   constructor() {
-    super("Filtrar Letras Grises", 2);
+    super("Filtrar Letras Grises", 1);
   }
 
   use(gameManager: GameManager) {
