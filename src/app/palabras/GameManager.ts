@@ -229,7 +229,7 @@ export default class GameManager {
     }
     let msg = "";
     if (emptyRows) {
-      this.player.addSkillPoints(emptyRows);
+      this.player.addSkillPoints(emptyRows + 1);
       msg += `+${emptyRows} ${emptyRows === 1 ? "fila" : "filas"} sobrantes \n`;
     }
     console.log("this.bonusTime", this.bonusTime);
@@ -237,6 +237,7 @@ export default class GameManager {
       this.player.addSkillPoints(1);
       msg += `+1 por velocidad \n`;
     }
+    msg += `+1 por finalizar \n`;
     this.render.setRewardDisplay(msg);
   }
 

@@ -11,7 +11,7 @@ export default class Player {
   //todo implementar una memoria de lo ultimo
   //todo implementar un solo uso de habilidad
   //todo implementar la habilidad en modo gris
-  constructor(initialSkillPoints: number = 3) {
+  constructor(initialSkillPoints: number = 4) {
     this.skillPoints = initialSkillPoints;
     this.skills = [];
     this.addSkill(new CharRevealGreen());
