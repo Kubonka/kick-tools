@@ -206,7 +206,7 @@ export default function Palabras() {
       if (time < bestTime) {
         sessionStorage.setItem(wordSize.toString(), time.toString());
       }
-      if (time < 61 && gm.current) {
+      if (time < 121 && gm.current) {
         gm.current.bonusTime = true;
       }
       //* streak
