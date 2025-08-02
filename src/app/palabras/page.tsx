@@ -14,12 +14,15 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { Label } from "@/components/ui/label";
 type Cell = { char: string; status: Status };
 type Words = string[];
 type Status = "white" | "gray" | "yellow" | "green";
 
 export default function Palabras() {
   const [, setUpdate] = useState(false);
+  const [rewardDisplay, setRewardDisplay] = useState("");
+  const rewardDisplayRef = useRef<HTMLDivElement | null>(null);
   const [bestStreak, setBestStreak] = useState<number | null>(null);
   const [bestTimes, setBestTimes] = useState<{ [key: string]: number }>({});
   const [showData, setShowData] = useState(true);
@@ -141,6 +144,39 @@ export default function Palabras() {
       revertOnUpdate: false,
     }
   );
+  useGSAP(
+    () => {
+      if (!rewardDisplayRef.current) return;
+      gsap.fromTo(
+        rewardDisplayRef.current,
+        { x: 140, y: 0, opacity: 1 },
+        {
+          x: 140,
+          y: -60,
+          opacity: 0,
+          duration: 2,
+          ease: "power1.out",
+          onComplete: () => {
+            setRewardDisplay("");
+            setTimeout(
+              () =>
+                gsap.set(rewardDisplayRef.current, {
+                  x: 140,
+                  y: 0,
+                  opacity: 1,
+                }),
+              200
+            );
+          },
+        }
+      );
+    },
+    {
+      scope: rewardDisplayRef,
+      dependencies: [rewardDisplay],
+      revertOnUpdate: false,
+    }
+  );
   const formatTime = (secs: number) => {
     const minutes = Math.floor(secs / 60)
       .toString()
@@ -161,16 +197,17 @@ export default function Palabras() {
 
   function handleGameFinished(time: number) {
     if (gm.current?.gameWon) {
+      setTimeout(() => handleNewWord(), 4000);
       //*time
       const wordSize = gm.current?.getBoardSize();
       const storeTime = sessionStorage.getItem(wordSize.toString());
       let bestTime = 0;
       if (storeTime) bestTime = parseInt(storeTime);
-      console.log(storeTime);
-      console.log(time);
       if (time < bestTime) {
-        console.log("guarda");
         sessionStorage.setItem(wordSize.toString(), time.toString());
+      }
+      if (time < 61 && gm.current) {
+        gm.current.bonusTime = true;
       }
       //* streak
       const storeStreak = sessionStorage.getItem("streak");
@@ -200,7 +237,8 @@ export default function Palabras() {
           () => {
             setCurrentAnimRow(gm.current!.row);
             setAnimateWrong((prev) => !prev);
-          }
+          },
+          (msg: string) => setRewardDisplay(msg)
         );
         gm.current.newGame();
         handleNewWord();
@@ -225,6 +263,11 @@ export default function Palabras() {
     }, 100);
   }
 
+  function handleNewGame() {
+    gm.current?.newGame();
+    handleNewWord();
+  }
+
   function getColor(status: Status): string {
     switch (status) {
       case "white":
@@ -238,6 +281,10 @@ export default function Palabras() {
       default:
         return "#ffffff";
     }
+  }
+
+  function handleSkillUse(skillName: string) {
+    gm.current?.useSkill(skillName);
   }
 
   return (
@@ -275,9 +322,9 @@ export default function Palabras() {
       <div className=" flex flex-row gap-4 mb-4">
         <Button
           className="bg-primary w-48  cursor-pointer"
-          onClick={handleNewWord}
+          onClick={handleNewGame}
         >
-          Nueva Palabra
+          Nueva Partida
         </Button>
         <Button
           variant={"secondary"}
@@ -287,23 +334,77 @@ export default function Palabras() {
           Records
         </Button>
       </div>
-      {gm.current?.board.map((row, rowIndex) => (
-        <div
-          className="flex flex-row gap-2"
-          key={rowIndex}
-          ref={rowIndex === currentAnimRow ? rowRef : null}
-        >
-          {row.map((cell, colIndex) => (
+      <div className="flex flex-row w-full justify-center gap-16 h-full items-start">
+        <div className="flex flex-col gap-2">
+          {gm.current?.board.map((row, rowIndex) => (
             <div
-              key={colIndex}
-              className="cell flex w-12 h-12 rounded-[8px] justify-center border-[1px] border-slate-400 items-center font-bold text-2xl cursor-default select-none"
-              style={{ backgroundColor: "#ffffff" }}
+              className="flex flex-row gap-1"
+              key={rowIndex}
+              ref={rowIndex === currentAnimRow ? rowRef : null}
             >
-              {cell.char.toUpperCase() || " "}
+              {row.map((cell, colIndex) => (
+                <div
+                  key={colIndex}
+                  className="cell flex w-12 h-12 rounded-[8px] justify-center border-[1px] border-slate-400 items-center font-bold text-2xl cursor-default select-none"
+                  style={{ backgroundColor: "#ffffff" }}
+                >
+                  {cell.char.toUpperCase() || " "}
+                </div>
+              ))}
             </div>
           ))}
         </div>
-      ))}
+        <div className="border-2 border-primary w-[500px] h-[390px] rounded-[8px] flex flex-col justify-center items-center gap-4 px-4">
+          <div className="flex flex-row gap-4 pt-2 relative">
+            <div className="flex flex-row gap-4 pt-2">
+              <Label className="font-semibold"> Puntos de habilidad : </Label>
+              <Label className="font-semibold">{` ${gm.current?.getPlayerPoints()} / 10`}</Label>
+            </div>
+            <div
+              ref={rewardDisplayRef}
+              style={{ whiteSpace: "pre-line" }}
+              className="absolute right-0"
+            >
+              {rewardDisplay}
+            </div>
+          </div>
+          <div className=" w-full flex flex-row gap-2 justify-center items-center pt-4">
+            <div
+              className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
+                gm.current?.isSkillActive("Revelar Letra Verde")
+                  ? ""
+                  : "opacity-50"
+              }`}
+              style={{ backgroundImage: `url('/images/Skill_Green.png')` }}
+              onClick={() => handleSkillUse("Revelar Letra Verde")}
+            ></div>
+            <div
+              className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
+                gm.current?.isSkillActive("Revelar Letra Amarilla")
+                  ? ""
+                  : "opacity-50"
+              }`}
+              style={{ backgroundImage: `url('/images/Skill_Yellow.png')` }}
+              onClick={() => handleSkillUse("Revelar Letra Amarilla")}
+            ></div>
+            <div
+              className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
+                gm.current?.isSkillActive("Filtrar Letras Grises")
+                  ? ""
+                  : "opacity-50"
+              }`}
+              style={{ backgroundImage: `url('/images/Skill_Gray.png')` }}
+              onClick={() => handleSkillUse("Filtrar Letras Grises")}
+            ></div>
+          </div>
+          <div
+            className=" w-full h-full font-semibold text-xl"
+            style={{ whiteSpace: "pre-line" }}
+          >
+            {gm.current?.helperPanel}
+          </div>
+        </div>
+      </div>
       <div className="h-24 text-5xl align-middle font-bold mt-4 text-shadow-slate-950">
         {gm.current?.gameOver ? gm.current?.target.toUpperCase() : ""}
       </div>

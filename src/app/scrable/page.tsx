@@ -307,6 +307,7 @@ export default function Scrable() {
   //     }
   //   }
   // }
+
   function procesarCombinacion(word: string, dict: Dict, final: string[]) {
     const ordWord = word.split("").sort().join("");
     const arr = dict;
@@ -317,6 +318,7 @@ export default function Scrable() {
       });
     }
   }
+
   /**
    * Genera todas las permutaciones posibles de longitud variable (de minLen a maxLen)
    * usando las letras disponibles, y llama a procesarCombinacion por cada una.
@@ -344,14 +346,11 @@ export default function Scrable() {
         procesarCombinacion(path.join(""), dict, final);
       }
       if (path.length === maxLen) return;
-
       for (const letra in letraCount) {
         if (letraCount[letra] > 0) {
           path.push(letra);
           letraCount[letra]--;
-
           backtrack(path, nivel + 1);
-
           letraCount[letra]++;
           path.pop();
         }
