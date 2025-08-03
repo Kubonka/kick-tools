@@ -186,9 +186,10 @@ export default function Palabras() {
     return `${minutes}:${seconds}`;
   };
   function handleKeyDown(event: KeyboardEvent) {
+    console.log(event.key);
     const key = event.key;
     if (!gm.current?.gameOver) {
-      if (/^[a-zA-Z]$/.test(key)) {
+      if (/^[a-zA-ZñÑ]$/.test(key)) {
         gm.current?.setChar(key.toLowerCase());
       } else if (key === "Backspace") {
         gm.current?.setChar(key);

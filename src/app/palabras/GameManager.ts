@@ -104,6 +104,7 @@ export default class GameManager {
     } else {
       if (this.col > this.targetWord.length - 1) return false;
       this.board[this.row][this.col].char = char;
+
       this.col++;
       this.render.update();
       if (this.col >= this.targetWord.length) {
