@@ -6,6 +6,9 @@ export class CharRevealGray extends Skill {
     super("Filtrar Letras Grises", 1);
   }
 
+  getDescription(): string {
+    return `Revela 4 letras que no pertencen a la palabra \n\n Costo : ${this.cost.toString()}`;
+  }
   use(gameManager: GameManager) {
     const usedChars = gameManager.getGrayChars();
     const alphabet = gameManager.getAlphabet();

@@ -6,6 +6,9 @@ export class CharRevealGreen extends Skill {
     super("Revelar Letra Verde", 3);
   }
 
+  getDescription(): string {
+    return `Revela una letra que pertenece a la palabra y su posición \n\n Costo : ${this.cost.toString()}`;
+  }
   use(gameManager: GameManager) {
     const targetWord = gameManager.target;
     const partial = gameManager.getPartialGreens();

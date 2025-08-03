@@ -5,7 +5,9 @@ export class CharRevealYellow extends Skill {
   constructor() {
     super("Revelar Letra Amarilla", 2);
   }
-
+  getDescription(): string {
+    return `Revela una letra que pertenece a la palabra \n\n Costo : ${this.cost.toString()}`;
+  }
   use(gameManager: GameManager) {
     const targetWord = gameManager.target;
     const partial = gameManager.getPartialGreens();

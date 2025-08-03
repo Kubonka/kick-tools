@@ -3,6 +3,7 @@ import Skill from "./Skill";
 import { CharRevealGray } from "./skills/CharRevealGray";
 import { CharRevealGreen } from "./skills/CharRevealGreen";
 import { CharRevealYellow } from "./skills/CharRevealYellow";
+import { DuplicateCharsReveal } from "./skills/DuplicateCharsReveal";
 
 export default class Player {
   skillPoints: number;
@@ -17,6 +18,7 @@ export default class Player {
     this.addSkill(new CharRevealGreen());
     this.addSkill(new CharRevealYellow());
     this.addSkill(new CharRevealGray());
+    this.addSkill(new DuplicateCharsReveal());
   }
 
   public addSkill(skill: Skill) {
@@ -37,5 +39,8 @@ export default class Player {
       this.skillPointsLimit,
       this.skillPoints + value
     );
+  }
+  public getSkillByName(skillName: string): Skill {
+    return this.skills.find((s) => s.name === skillName) as Skill;
   }
 }

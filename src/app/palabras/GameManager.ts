@@ -207,10 +207,13 @@ export default class GameManager {
     return this.streakCount;
   }
   //! METODOS RPG Y DE PLAYER
-  public useSkill(name: string) {
-    const res = this.player.useSkill(name, this);
+  public useSkill(skillName: string) {
+    const res = this.player.useSkill(skillName, this);
     this.helperPanel += res;
     this.render.update();
+  }
+  public getSkill(skillName: string): Skill {
+    return this.player.getSkillByName(skillName);
   }
   public getPlayerPoints() {
     return this.player.skillPoints;
@@ -240,7 +243,6 @@ export default class GameManager {
     msg += `+1 por finalizar \n`;
     this.render.setRewardDisplay(msg);
   }
-
   public getYellowChars(): string[] {
     //todo buscar en toda la matriz de cells las que sean de status GRAY
     const yellowChars: string[] = [];
@@ -279,12 +281,15 @@ export default class GameManager {
     }
     return targetCopy;
   }
-
   public isSkillActive(skillName: string): boolean {
     const skill: Skill[] = this.player.skills.filter(
       (s) => s.name === skillName
     );
     if (skill[0]) return skill[0].active;
     return false;
+  }
+  public canAfford(skillName: string): boolean {
+    const skill = this.player.skills.find((s) => s.name === skillName) as Skill;
+    return this.player.skillPoints >= skill.cost;
   }
 }

@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { Label } from "@/components/ui/label";
+import TooltipWrapper from "@/components/tooltipWrapper/TooltipWrapper";
 type Cell = { char: string; status: Status };
 type Words = string[];
 type Status = "white" | "gray" | "yellow" | "green";
@@ -369,33 +370,77 @@ export default function Palabras() {
             </div>
           </div>
           <div className=" w-full flex flex-row gap-2 justify-center items-center pt-4">
-            <div
-              className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
-                gm.current?.isSkillActive("Revelar Letra Verde")
-                  ? ""
-                  : "opacity-50"
-              }`}
-              style={{ backgroundImage: `url('/images/Skill_Green.png')` }}
-              onClick={() => handleSkillUse("Revelar Letra Verde")}
-            ></div>
-            <div
-              className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
-                gm.current?.isSkillActive("Revelar Letra Amarilla")
-                  ? ""
-                  : "opacity-50"
-              }`}
-              style={{ backgroundImage: `url('/images/Skill_Yellow.png')` }}
-              onClick={() => handleSkillUse("Revelar Letra Amarilla")}
-            ></div>
-            <div
-              className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
-                gm.current?.isSkillActive("Filtrar Letras Grises")
-                  ? ""
-                  : "opacity-50"
-              }`}
-              style={{ backgroundImage: `url('/images/Skill_Gray.png')` }}
-              onClick={() => handleSkillUse("Filtrar Letras Grises")}
-            ></div>
+            <TooltipWrapper
+              description={
+                gm.current
+                  ?.getSkill("Revelar Letra Verde")
+                  .getDescription() as string
+              }
+            >
+              <div
+                className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
+                  gm.current?.isSkillActive("Revelar Letra Verde") &&
+                  gm.current?.canAfford("Revelar Letra Verde")
+                    ? ""
+                    : "opacity-50"
+                }`}
+                style={{ backgroundImage: `url('/images/Skill_Green.png')` }}
+                onClick={() => handleSkillUse("Revelar Letra Verde")}
+              ></div>
+            </TooltipWrapper>
+            <TooltipWrapper
+              description={
+                gm.current
+                  ?.getSkill("Revelar Letra Amarilla")
+                  .getDescription() as string
+              }
+            >
+              <div
+                className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
+                  gm.current?.isSkillActive("Revelar Letra Amarilla")
+                    ? ""
+                    : "opacity-50"
+                }`}
+                style={{ backgroundImage: `url('/images/Skill_Yellow.png')` }}
+                onClick={() => handleSkillUse("Revelar Letra Amarilla")}
+              ></div>
+            </TooltipWrapper>
+            <TooltipWrapper
+              description={
+                gm.current
+                  ?.getSkill("Filtrar Letras Grises")
+                  .getDescription() as string
+              }
+            >
+              <div
+                className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
+                  gm.current?.isSkillActive("Filtrar Letras Grises")
+                    ? ""
+                    : "opacity-50"
+                }`}
+                style={{ backgroundImage: `url('/images/Skill_Gray.png')` }}
+                onClick={() => handleSkillUse("Filtrar Letras Grises")}
+              ></div>
+            </TooltipWrapper>
+            <TooltipWrapper
+              description={
+                gm.current
+                  ?.getSkill("Revelar Duplicados")
+                  .getDescription() as string
+              }
+            >
+              <div
+                className={`w-[64px] h-[64px] bg-no-repeat bg-center cursor-pointer rounded-[8px] hover:border-[2px] hover:border-primary ${
+                  gm.current?.isSkillActive("Revelar Duplicados")
+                    ? ""
+                    : "opacity-50"
+                }`}
+                style={{
+                  backgroundImage: `url('/images/Skill_Duplicate.png')`,
+                }}
+                onClick={() => handleSkillUse("Revelar Duplicados")}
+              ></div>
+            </TooltipWrapper>
           </div>
           <div
             className=" w-full h-full font-semibold text-xl"
