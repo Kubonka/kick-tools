@@ -151,12 +151,6 @@ export default class GameManager {
       (cell) => cell.status === "green"
     );
 
-    if (this.row >= this.targetWord.length) {
-      this.gameOver = true;
-      this.streakCount = 0;
-      this.render.update();
-      this.gameWon = false;
-    }
     if (greenChars.length === this.targetWord.length) {
       setTimeout(() => {
         this.gameOver = true;
@@ -165,6 +159,14 @@ export default class GameManager {
         this.render.update();
         this.gameWon = true;
       }, 2500);
+      return;
+    }
+    if (this.row >= this.targetWord.length) {
+      this.gameOver = true;
+      this.streakCount = 0;
+      this.render.update();
+      this.gameWon = false;
+      return;
     }
   }
   private isValidWord(word: string): boolean {
@@ -182,8 +184,8 @@ export default class GameManager {
     this.gameWon = false;
     this.bonusTime = false;
     this.helperPanel = "";
-    this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
-    //this.targetWord = "rodea";
+    //this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
+    this.targetWord = "rodea";
     console.log(this.targetWord);
     this.row = 0;
     this.col = 0;
