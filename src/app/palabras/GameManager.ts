@@ -184,8 +184,8 @@ export default class GameManager {
     this.gameWon = false;
     this.bonusTime = false;
     this.helperPanel = "";
-    this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
-    //this.targetWord = "rodea";
+    //this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
+    this.targetWord = "empero";
     console.log(this.targetWord);
     this.row = 0;
     this.col = 0;
@@ -238,7 +238,6 @@ export default class GameManager {
       this.player.addSkillPoints(emptyRows + 1);
       msg += `+${emptyRows} ${emptyRows === 1 ? "fila" : "filas"} sobrantes \n`;
     }
-    console.log("this.bonusTime", this.bonusTime);
     if (this.bonusTime) {
       this.player.addSkillPoints(1);
       msg += `+1 por velocidad \n`;

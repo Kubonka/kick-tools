@@ -14,11 +14,15 @@ export class CharRevealYellow extends Skill {
     const yellow = gameManager.getYellowChars();
     let found = false;
     let rndIdx = 0;
+    let retryCount = 0;
     do {
       rndIdx = Math.floor(Math.random() * targetWord.length);
       if (partial[rndIdx] !== "") {
         const char = partial[rndIdx];
-        if (yellow.includes(char)) continue;
+        if (yellow.includes(char) && retryCount < 100) {
+          retryCount++;
+          continue;
+        }
         found = true;
       }
     } while (!found);
