@@ -184,8 +184,8 @@ export default class GameManager {
     this.gameWon = false;
     this.bonusTime = false;
     this.helperPanel = "";
-    //this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
-    this.targetWord = "rodea";
+    this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
+    //this.targetWord = "rodea";
     console.log(this.targetWord);
     this.row = 0;
     this.col = 0;
