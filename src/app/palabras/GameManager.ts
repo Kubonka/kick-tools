@@ -11,6 +11,20 @@ type RenderFunctions = {
 };
 
 export default class GameManager {
+  private trollIdx = 0;
+  private trollWords = [
+    "rosario",
+    "centra",
+    "mejor",
+    "equipo",
+    "mundo",
+    "fideo",
+    "maria",
+    "campeon",
+    "leproso",
+    "tenes",
+    "adentro",
+  ];
   private player;
   public helperPanel = "";
   public gameOver = false;
@@ -184,9 +198,14 @@ export default class GameManager {
     this.gameWon = false;
     this.bonusTime = false;
     this.helperPanel = "";
-    this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
+    if (this.trollIdx < 10) {
+      this.targetWord = this.trollWords[this.trollIdx];
+      this.trollIdx++;
+    } else
+      this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
     //this.targetWord = "empero";
-    console.log(this.targetWord);
+    //! trolleada
+
     this.row = 0;
     this.col = 0;
     for (let i = 0; i < this.board.length; i++) {
