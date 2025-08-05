@@ -194,6 +194,7 @@ export default class GameManager {
     return this.targetWord.length;
   }
   public newWord() {
+    console.log("NEW");
     this.gameOver = false;
     this.gameWon = false;
     this.bonusTime = false;
@@ -262,6 +263,7 @@ export default class GameManager {
       this.player.addSkillPoints(1);
       msg += `+1 por velocidad \n`;
     }
+    this.player.addSkillPoints(1);
     msg += `+1 por finalizar \n`;
     this.render.setRewardDisplay(msg);
   }
