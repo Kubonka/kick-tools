@@ -14,7 +14,7 @@ export default class GameManager {
   private trollIdx = 0;
   private trollWords = [
     "rosario",
-    "centra",
+    "central",
     "mejor",
     "equipo",
     "mundo",
@@ -198,12 +198,13 @@ export default class GameManager {
     this.gameWon = false;
     this.bonusTime = false;
     this.helperPanel = "";
-    if (this.trollIdx < 10) {
-      this.targetWord = this.trollWords[this.trollIdx];
-      this.trollIdx++;
-    } else
-      this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
+    // if (this.trollIdx < 10) {
+    //   this.targetWord = this.trollWords[this.trollIdx];
+    //   this.trollIdx++;
+    // } else
+    this.targetWord = this.pool[Math.floor(Math.random() * this.pool.length)];
     //this.targetWord = "empero";
+    //console.log(this.targetWord);
     //! trolleada
 
     this.row = 0;
