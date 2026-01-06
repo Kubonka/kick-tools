@@ -1,0 +1,994 @@
+[
+  {
+    "dominio": "ac",
+    "nombrePais": "Isla Ascension"
+  },
+  {
+    "dominio": "ad",
+    "nombrePais": "Andorra"
+  },
+  {
+    "dominio": "ae",
+    "nombrePais": "Emiratos Árabes Unidos"
+  },
+  {
+    "dominio": "af",
+    "nombrePais": "Afganistán"
+  },
+  {
+    "dominio": "ag",
+    "nombrePais": "Antigua y Barbuda"
+  },
+  {
+    "dominio": "ai",
+    "nombrePais": "Anguilla"
+  },
+  {
+    "dominio": "al",
+    "nombrePais": "Albania"
+  },
+  {
+    "dominio": "am",
+    "nombrePais": "Armenia"
+  },
+  {
+    "dominio": "ao",
+    "nombrePais": "Angola"
+  },
+  {
+    "dominio": "aq",
+    "nombrePais": "Antátida"
+  },
+  {
+    "dominio": "ar",
+    "nombrePais": "Argentina"
+  },
+  {
+    "dominio": "as",
+    "nombrePais": "Samoa Americana"
+  },
+  {
+    "dominio": "at",
+    "nombrePais": "Austria"
+  },
+  {
+    "dominio": "au",
+    "nombrePais": "Australia"
+  },
+  {
+    "dominio": "aw",
+    "nombrePais": "Aruba"
+  },
+  {
+    "dominio": "ax",
+    "nombrePais": "Aland"
+  },
+  {
+    "dominio": "az",
+    "nombrePais": "Azerbaiyán"
+  },
+  {
+    "dominio": "ba",
+    "nombrePais": "Bosnia-Herzegovina"
+  },
+  {
+    "dominio": "bb",
+    "nombrePais": "Barbados"
+  },
+  {
+    "dominio": "bd",
+    "nombrePais": "Bangladés"
+  },
+  {
+    "dominio": "be",
+    "nombrePais": "Bélgica"
+  },
+  {
+    "dominio": "bf",
+    "nombrePais": "Burkina Faso"
+  },
+  {
+    "dominio": "bg",
+    "nombrePais": "Bulgaria"
+  },
+  {
+    "dominio": "bh",
+    "nombrePais": "Baréin"
+  },
+  {
+    "dominio": "bi",
+    "nombrePais": "Burundi"
+  },
+  {
+    "dominio": "bj",
+    "nombrePais": "Benín"
+  },
+  {
+    "dominio": "bl",
+    "nombrePais": "Saint-Barthélemy"
+  },
+  {
+    "dominio": "bm",
+    "nombrePais": "Bermudas"
+  },
+  {
+    "dominio": "bn",
+    "nombrePais": "Brunéi"
+  },
+  {
+    "dominio": "bo",
+    "nombrePais": "Boliva"
+  },
+  {
+    "dominio": "br",
+    "nombrePais": "Brasil"
+  },
+  {
+    "dominio": "bq",
+    "nombrePais": "Bonaire, Saba, San Eustaquio"
+  },
+  {
+    "dominio": "bs",
+    "nombrePais": "Bahamas"
+  },
+  {
+    "dominio": "bt",
+    "nombrePais": "Bután"
+  },
+  {
+    "dominio": "bw",
+    "nombrePais": "Botsvana"
+  },
+  {
+    "dominio": "by",
+    "nombrePais": "Bielorrusia"
+  },
+  {
+    "dominio": "bz",
+    "nombrePais": "Belice"
+  },
+  {
+    "dominio": "ca",
+    "nombrePais": "Canadá"
+  },
+  {
+    "dominio": "cc",
+    "nombrePais": "Islas Cocos"
+  },
+  {
+    "dominio": "cd",
+    "nombrePais": "República Democrática del Congo"
+  },
+  {
+    "dominio": "cf",
+    "nombrePais": "República Centroafricana"
+  },
+  {
+    "dominio": "cg",
+    "nombrePais": "República del Congo"
+  },
+  {
+    "dominio": "ch",
+    "nombrePais": "Suiza"
+  },
+  {
+    "dominio": "ci",
+    "nombrePais": "Costa de Marfil"
+  },
+  {
+    "dominio": "ck",
+    "nombrePais": "Islas Cook"
+  },
+  {
+    "dominio": "cl",
+    "nombrePais": "Chile"
+  },
+  {
+    "dominio": "cm",
+    "nombrePais": "Camerún"
+  },
+  {
+    "dominio": "cn",
+    "nombrePais": "República Popular China"
+  },
+  {
+    "dominio": "co",
+    "nombrePais": "Colombia"
+  },
+  {
+    "dominio": "cr",
+    "nombrePais": "Costa Rica"
+  },
+  {
+    "dominio": "cu",
+    "nombrePais": "Cuba"
+  },
+  {
+    "dominio": "cv",
+    "nombrePais": "Cabo Verde"
+  },
+  {
+    "dominio": "cw",
+    "nombrePais": "Curaçao"
+  },
+  {
+    "dominio": "cx",
+    "nombrePais": "Isla de Navidad"
+  },
+  {
+    "dominio": "cy",
+    "nombrePais": "Chipre"
+  },
+  {
+    "dominio": "cz",
+    "nombrePais": "Chequia"
+  },
+  {
+    "dominio": "de",
+    "nombrePais": "Alemania"
+  },
+  {
+    "dominio": "dj",
+    "nombrePais": "Djibouti"
+  },
+  {
+    "dominio": "dk",
+    "nombrePais": "Dinamarca"
+  },
+  {
+    "dominio": "dm",
+    "nombrePais": "Dominica"
+  },
+  {
+    "dominio": "do",
+    "nombrePais": "República Dominicana"
+  },
+  {
+    "dominio": "dz",
+    "nombrePais": "Algeria"
+  },
+  {
+    "dominio": "ec",
+    "nombrePais": "Ecuador"
+  },
+  {
+    "dominio": "ee",
+    "nombrePais": "Estonia"
+  },
+  {
+    "dominio": "eg",
+    "nombrePais": "Egipto"
+  },
+  {
+    "dominio": "er",
+    "nombrePais": "Eritrea"
+  },
+  {
+    "dominio": "es",
+    "nombrePais": "España"
+  },
+  {
+    "dominio": "et",
+    "nombrePais": "Etiopía"
+  },
+  {
+    "dominio": "eu",
+    "nombrePais": "Unión Europea"
+  },
+  {
+    "dominio": "fi",
+    "nombrePais": "Finlandia"
+  },
+  {
+    "dominio": "fj",
+    "nombrePais": "Fiji"
+  },
+  {
+    "dominio": "fk",
+    "nombrePais": "Islas Malvinas"
+  },
+  {
+    "dominio": "fm",
+    "nombrePais": "Micronesia"
+  },
+  {
+    "dominio": "fo",
+    "nombrePais": "Feroe"
+  },
+  {
+    "dominio": "fr",
+    "nombrePais": "Francia"
+  },
+  {
+    "dominio": "ga",
+    "nombrePais": "Gabun"
+  },
+  {
+    "dominio": "uk",
+    "nombrePais": "Reino Unido"
+  },
+  {
+    "dominio": "gd",
+    "nombrePais": "Granada"
+  },
+  {
+    "dominio": "ge",
+    "nombrePais": "Georgia"
+  },
+  {
+    "dominio": "gf",
+    "nombrePais": "Guyana Francesa"
+  },
+  {
+    "dominio": "gg",
+    "nombrePais": "Guernsey"
+  },
+  {
+    "dominio": "gh",
+    "nombrePais": "Ghana"
+  },
+  {
+    "dominio": "gi",
+    "nombrePais": "Gibraltar"
+  },
+  {
+    "dominio": "gl",
+    "nombrePais": "Groenlandia"
+  },
+  {
+    "dominio": "gm",
+    "nombrePais": "Gambia"
+  },
+  {
+    "dominio": "gn",
+    "nombrePais": "Guinea"
+  },
+  {
+    "dominio": "gp",
+    "nombrePais": "Guadalupe"
+  },
+  {
+    "dominio": "gq",
+    "nombrePais": "Guinea Ecuatorial"
+  },
+  {
+    "dominio": "gr",
+    "nombrePais": "Grecia"
+  },
+  {
+    "dominio": "gs",
+    "nombrePais": "Georgia del Sur y las Islas Sandwich del Sur"
+  },
+  {
+    "dominio": "gt",
+    "nombrePais": "Guatemala"
+  },
+  {
+    "dominio": "gu",
+    "nombrePais": "Guam"
+  },
+  {
+    "dominio": "gw",
+    "nombrePais": "Guinea-Bissau"
+  },
+  {
+    "dominio": "gy",
+    "nombrePais": "Guayana"
+  },
+  {
+    "dominio": "hk",
+    "nombrePais": "Hong Kong"
+  },
+  {
+    "dominio": "hm",
+    "nombrePais": "Islas Heard y McDonald"
+  },
+  {
+    "dominio": "hn",
+    "nombrePais": "Honduras"
+  },
+  {
+    "dominio": "hr",
+    "nombrePais": "Croacia"
+  },
+  {
+    "dominio": "ht",
+    "nombrePais": "Haití"
+  },
+  {
+    "dominio": "hu",
+    "nombrePais": "Hungría"
+  },
+  {
+    "dominio": "id",
+    "nombrePais": "Indonesia"
+  },
+  {
+    "dominio": "ie",
+    "nombrePais": "Irlanda"
+  },
+  {
+    "dominio": "il",
+    "nombrePais": "Israel"
+  },
+  {
+    "dominio": "im",
+    "nombrePais": "Isla de Man"
+  },
+  {
+    "dominio": "in",
+    "nombrePais": "India"
+  },
+  {
+    "dominio": "io",
+    "nombrePais": "Territorio Británico del Océano Índico"
+  },
+  {
+    "dominio": "iq",
+    "nombrePais": "Irak"
+  },
+  {
+    "dominio": "ir",
+    "nombrePais": "Irán"
+  },
+  {
+    "dominio": "is",
+    "nombrePais": "Islandia"
+  },
+  {
+    "dominio": "it",
+    "nombrePais": "Italia"
+  },
+  {
+    "dominio": "je",
+    "nombrePais": "Jersey"
+  },
+  {
+    "dominio": "jm",
+    "nombrePais": "Jamaica"
+  },
+  {
+    "dominio": "jo",
+    "nombrePais": "Jordania"
+  },
+  {
+    "dominio": "jp",
+    "nombrePais": "Japón"
+  },
+  {
+    "dominio": "ke",
+    "nombrePais": "Kenia"
+  },
+  {
+    "dominio": "kg",
+    "nombrePais": "Kirguistán"
+  },
+  {
+    "dominio": "kh",
+    "nombrePais": "Camboya"
+  },
+  {
+    "dominio": "ki",
+    "nombrePais": "Kiribati"
+  },
+  {
+    "dominio": "km",
+    "nombrePais": "Comoras"
+  },
+  {
+    "dominio": "kn",
+    "nombrePais": "St. Kitts y Nevis"
+  },
+  {
+    "dominio": "kp",
+    "nombrePais": "Corea del Norte"
+  },
+  {
+    "dominio": "kr",
+    "nombrePais": "Corea del Sur"
+  },
+  {
+    "dominio": "kw",
+    "nombrePais": "Kuwait"
+  },
+  {
+    "dominio": "ky",
+    "nombrePais": "Islas Caimán"
+  },
+  {
+    "dominio": "kz",
+    "nombrePais": "Kazajstán"
+  },
+  {
+    "dominio": "la",
+    "nombrePais": "Laos"
+  },
+  {
+    "dominio": "lb",
+    "nombrePais": "Líbano"
+  },
+  {
+    "dominio": "lc",
+    "nombrePais": "Santa Lucia"
+  },
+  {
+    "dominio": "li",
+    "nombrePais": "Liechtenstein"
+  },
+  {
+    "dominio": "lk",
+    "nombrePais": "Sri Lanka"
+  },
+  {
+    "dominio": "lr",
+    "nombrePais": "Liberia"
+  },
+  {
+    "dominio": "ls",
+    "nombrePais": "Lesoto"
+  },
+  {
+    "dominio": "lt",
+    "nombrePais": "Lituania"
+  },
+  {
+    "dominio": "lu",
+    "nombrePais": "Luxemburgo"
+  },
+  {
+    "dominio": "lv",
+    "nombrePais": "Letonia"
+  },
+  {
+    "dominio": "ly",
+    "nombrePais": "Libia"
+  },
+  {
+    "dominio": "ma",
+    "nombrePais": "Marruecos"
+  },
+  {
+    "dominio": "mc",
+    "nombrePais": "Mónaco"
+  },
+  {
+    "dominio": "md",
+    "nombrePais": "Moldavia"
+  },
+  {
+    "dominio": "me",
+    "nombrePais": "Montenegro"
+  },
+  {
+    "dominio": "mf",
+    "nombrePais": "Saint-Martin"
+  },
+  {
+    "dominio": "mg",
+    "nombrePais": "Madagascar"
+  },
+  {
+    "dominio": "mh",
+    "nombrePais": "Islas Marshall"
+  },
+  {
+    "dominio": "mk",
+    "nombrePais": "Macedonia"
+  },
+  {
+    "dominio": "ml",
+    "nombrePais": "Mali"
+  },
+  {
+    "dominio": "mm",
+    "nombrePais": "Myanmar"
+  },
+  {
+    "dominio": "mn",
+    "nombrePais": "Mongolia"
+  },
+  {
+    "dominio": "mo",
+    "nombrePais": "Macau"
+  },
+  {
+    "dominio": "mp",
+    "nombrePais": "Islas Marinas del Norte"
+  },
+  {
+    "dominio": "mq",
+    "nombrePais": "Martinica"
+  },
+  {
+    "dominio": "mr",
+    "nombrePais": "Mauritania"
+  },
+  {
+    "dominio": "ms",
+    "nombrePais": "Montserrat"
+  },
+  {
+    "dominio": "mt",
+    "nombrePais": "Malta"
+  },
+  {
+    "dominio": "mu",
+    "nombrePais": "República de Mauricio"
+  },
+  {
+    "dominio": "mv",
+    "nombrePais": "Maledivas"
+  },
+  {
+    "dominio": "mw",
+    "nombrePais": "Malawi"
+  },
+  {
+    "dominio": "mx",
+    "nombrePais": "México"
+  },
+  {
+    "dominio": "my",
+    "nombrePais": "Malasia"
+  },
+  {
+    "dominio": "mz",
+    "nombrePais": "Mozambique"
+  },
+  {
+    "dominio": "na",
+    "nombrePais": "Namibia"
+  },
+  {
+    "dominio": "nc",
+    "nombrePais": "Caledonia"
+  },
+  {
+    "dominio": "ne",
+    "nombrePais": "Níger"
+  },
+  {
+    "dominio": "nf",
+    "nombrePais": "Isla rfolk"
+  },
+  {
+    "dominio": "ng",
+    "nombrePais": "Nigeria"
+  },
+  {
+    "dominio": "ni",
+    "nombrePais": "Nicaragua"
+  },
+  {
+    "dominio": "nl",
+    "nombrePais": "Países Bajos"
+  },
+  {
+    "dominio": "no",
+    "nombrePais": "ruega"
+  },
+  {
+    "dominio": "np",
+    "nombrePais": "Nepal"
+  },
+  {
+    "dominio": "nr",
+    "nombrePais": "Nauru"
+  },
+  {
+    "dominio": "nu",
+    "nombrePais": "Niue"
+  },
+  {
+    "dominio": "nz",
+    "nombrePais": "Nueva Zelanda"
+  },
+  {
+    "dominio": "om",
+    "nombrePais": "Omán"
+  },
+  {
+    "dominio": "pa",
+    "nombrePais": "Panamá"
+  },
+  {
+    "dominio": "pe",
+    "nombrePais": "Perú"
+  },
+  {
+    "dominio": "pf",
+    "nombrePais": "Polinesia Francesa"
+  },
+  {
+    "dominio": "pg",
+    "nombrePais": "Papua Nueva Guinea"
+  },
+  {
+    "dominio": "ph",
+    "nombrePais": "Filipinas"
+  },
+  {
+    "dominio": "pk",
+    "nombrePais": "Pakistán"
+  },
+  {
+    "dominio": "pl",
+    "nombrePais": "Polonia"
+  },
+  {
+    "dominio": "pm",
+    "nombrePais": "Saint Pedro y Miquelón"
+  },
+  {
+    "dominio": "pn",
+    "nombrePais": "Islas Pitcairn"
+  },
+  {
+    "dominio": "pr",
+    "nombrePais": "Puerto Rico"
+  },
+  {
+    "dominio": "ps",
+    "nombrePais": "Estado de Palestina"
+  },
+  {
+    "dominio": "pt",
+    "nombrePais": "Portugal"
+  },
+  {
+    "dominio": "pw",
+    "nombrePais": "Palau"
+  },
+  {
+    "dominio": "py",
+    "nombrePais": "Paraguay"
+  },
+  {
+    "dominio": "qa",
+    "nombrePais": "Katar"
+  },
+  {
+    "dominio": "re",
+    "nombrePais": "Reunión"
+  },
+  {
+    "dominio": "ro",
+    "nombrePais": "Rumania"
+  },
+  {
+    "dominio": "rs",
+    "nombrePais": "Serbia"
+  },
+  {
+    "dominio": "ru",
+    "nombrePais": "Rusia"
+  },
+  {
+    "dominio": "rw",
+    "nombrePais": "Ruanda"
+  },
+  {
+    "dominio": "sa",
+    "nombrePais": "Arabia Saudita"
+  },
+  {
+    "dominio": "sb",
+    "nombrePais": "Islas Salomón"
+  },
+  {
+    "dominio": "sc",
+    "nombrePais": "Seychelles"
+  },
+  {
+    "dominio": "sd",
+    "nombrePais": "Sudán"
+  },
+  {
+    "dominio": "se",
+    "nombrePais": "Suecia"
+  },
+  {
+    "dominio": "sg",
+    "nombrePais": "Singapur"
+  },
+  {
+    "dominio": "sh",
+    "nombrePais": "St. Helena"
+  },
+  {
+    "dominio": "si",
+    "nombrePais": "Eslovenia"
+  },
+  {
+    "dominio": "sk",
+    "nombrePais": "Eslovaquia"
+  },
+  {
+    "dominio": "sl",
+    "nombrePais": "Sierra Leona"
+  },
+  {
+    "dominio": "sm",
+    "nombrePais": "San Marino"
+  },
+  {
+    "dominio": "sn",
+    "nombrePais": "Senegal"
+  },
+  {
+    "dominio": "so",
+    "nombrePais": "Somalia"
+  },
+  {
+    "dominio": "sr",
+    "nombrePais": "Surinam"
+  },
+  {
+    "dominio": "ss",
+    "nombrePais": "Sudán del Sur"
+  },
+  {
+    "dominio": "st",
+    "nombrePais": "Santo Tomé y Príncipe"
+  },
+  {
+    "dominio": "sv",
+    "nombrePais": "El Salvador"
+  },
+  {
+    "dominio": "sx",
+    "nombrePais": "Sint MaaNorten"
+  },
+  {
+    "dominio": "sy",
+    "nombrePais": "Siria"
+  },
+  {
+    "dominio": "sz",
+    "nombrePais": "Swazilandia"
+  },
+  {
+    "dominio": "tc",
+    "nombrePais": "Islas Turcas y Caicos"
+  },
+  {
+    "dominio": "td",
+    "nombrePais": "Chad"
+  },
+  {
+    "dominio": "tf",
+    "nombrePais": "Tierras Australes y Antárticas Francesas"
+  },
+  {
+    "dominio": "tg",
+    "nombrePais": "Togo"
+  },
+  {
+    "dominio": "th",
+    "nombrePais": "Tailandia"
+  },
+  {
+    "dominio": "tj",
+    "nombrePais": "Tayikistán"
+  },
+  {
+    "dominio": "tk",
+    "nombrePais": "Tokelau"
+  },
+  {
+    "dominio": "tl",
+    "nombrePais": "Timor Occidental"
+  },
+  {
+    "dominio": "tm",
+    "nombrePais": "Turkmenistán"
+  },
+  {
+    "dominio": "tn",
+    "nombrePais": "Túnez"
+  },
+  {
+    "dominio": "to",
+    "nombrePais": "Tonga"
+  },
+  {
+    "dominio": "tr",
+    "nombrePais": "Turquía"
+  },
+  {
+    "dominio": "tt",
+    "nombrePais": "Trinidad y Tobago"
+  },
+  {
+    "dominio": "tv",
+    "nombrePais": "Tuvalu"
+  },
+  {
+    "dominio": "tw",
+    "nombrePais": "Taiwán"
+  },
+  {
+    "dominio": "tz",
+    "nombrePais": "Tanzania"
+  },
+  {
+    "dominio": "ua",
+    "nombrePais": "Ucrania"
+  },
+  {
+    "dominio": "ug",
+    "nombrePais": "Uganda"
+  },
+  {
+    "dominio": "uk",
+    "nombrePais": "Reino Unido"
+  },
+  {
+    "dominio": "us",
+    "nombrePais": "Estados Unidos"
+  },
+  {
+    "dominio": "uy",
+    "nombrePais": "Uruguay"
+  },
+  {
+    "dominio": "uz",
+    "nombrePais": "Uzbekistán"
+  },
+  {
+    "dominio": "va",
+    "nombrePais": "Ciudad del Vaticano"
+  },
+  {
+    "dominio": "vc",
+    "nombrePais": "St. Vincente y las Granadinas"
+  },
+  {
+    "dominio": "ve",
+    "nombrePais": "Venezuela"
+  },
+  {
+    "dominio": "vg",
+    "nombrePais": "Islas Vírgenes Británicas"
+  },
+  {
+    "dominio": "vi",
+    "nombrePais": "Islas Vírgenes de los EE.UU"
+  },
+  {
+    "dominio": "vn",
+    "nombrePais": "Vietnam"
+  },
+  {
+    "dominio": "vu",
+    "nombrePais": "Vanuatu"
+  },
+  {
+    "dominio": "wf",
+    "nombrePais": "Wallis y Futuna"
+  },
+  {
+    "dominio": "ws",
+    "nombrePais": "Samoa"
+  },
+  {
+    "dominio": "ye",
+    "nombrePais": "Yemen"
+  },
+  {
+    "dominio": "yt",
+    "nombrePais": "Mayotte"
+  },
+  {
+    "dominio": "za",
+    "nombrePais": "Sudáfrica"
+  },
+  {
+    "dominio": "zm",
+    "nombrePais": "Zambia"
+  },
+  {
+    "dominio": "zw",
+    "nombrePais": "Zimbabue"
+  }
+]
