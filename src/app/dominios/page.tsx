@@ -155,6 +155,7 @@ function Dominios() {
     transition-all duration-300
     ${answerBorder === "green" && "border-2 border-green-500"}
     ${answerBorder === "red" && "border-2 border-red-500"}
+    ${answerBorder === "none" && "border-1 border-primary"}
   `}
             />
 
