@@ -76,7 +76,7 @@ function Dominios() {
   }
 
   return (
-    <div className="flex flex-col gap-8 h-full w-full items-center justify-center p-4">
+    <div className="flex flex-col gap-8 h-full w-full items-center justify-start p-4">
       <div className="flex flex-row gap-8">
         <Button
           onClick={() => {
@@ -129,6 +129,7 @@ function Dominios() {
     transition-all duration-300
     ${answerBorder === "green" && "border-2 border-green-500"}
     ${answerBorder === "red" && "border-2 border-red-500"}
+    ${answerBorder === "none" && "border-1 border-primary"}
   `}
               />
               <AutoFillHelper search={value} onTabPressed={handleTabPressed} />
